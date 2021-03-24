@@ -23,6 +23,7 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
         Date.now() - x.timestamp < 1000 * 60
     )
   )
+    // @ts-ignore
     return res.status(429).send("To many requests");
   else if (
     rateLimitAccumulator.find((x) => x.ip === req.socket.remoteAddress)
@@ -41,6 +42,7 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     typeof req.headers.token !== "string" ||
     !/Bearer .+/g.test(req.headers.token)
   )
+    // @ts-ignore
     return res.status(400).send("Bad request!");
 
   let decoded;
@@ -48,18 +50,19 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
   try {
     decoded = jwt.verify(req.headers.token.slice(7), process.env.SECRET);
   } catch (error) {
+    // @ts-ignore
     return res.status(400).send("Bad request!");
   }
 
   const accounts = firestore.collection("accounts");
   const filteredAccounts = await accounts.doc(String(decoded.account)).get();
   const account = filteredAccounts.data();
-
+  // @ts-ignore
   if (!account) return res.status(400).send("Bad request!");
 
   account.acessKey = undefined;
   account.createdAt = undefined;
-
+  // @ts-ignore
   return res.status(200).json({
     account,
   });

@@ -23,6 +23,7 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
         Date.now() - x.timestamp < 1000 * 60
     )
   )
+    // @ts-ignore
     return res.status(429).send("To many requests");
   else if (
     rateLimitAccumulator.find((x) => x.ip === req.socket.remoteAddress)
@@ -35,21 +36,22 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
       timestamp: Date.now(),
     });
   }
-
+  // @ts-ignore
   if (!req.body || !req.body.acessKey || typeof req.body.acessKey !== "string")
+    // @ts-ignore
     return res.status(400).send("Bad request!");
 
   const accounts = firestore.collection("accounts");
-  const filteredAccounts = await accounts
+  const filteredAccounts = await accounts // @ts-ignore
     .where("acessKey", "==", req.body.acessKey)
     .get();
   const account = filteredAccounts.docs[0]?.data();
-
+  // @ts-ignore
   if (!account) return res.status(400).send("Bad request!");
 
   account.acessKey = undefined;
   account.createdAt = undefined;
-
+  // @ts-ignore
   return res.status(200).json({
     account,
     // @ts-ignore
