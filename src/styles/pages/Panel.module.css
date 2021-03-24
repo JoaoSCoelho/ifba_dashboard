@@ -1,0 +1,190 @@
+.container {
+  min-height: 100vh;
+}
+
+.pageHeader {
+  height: 80px;
+  font-size: 1.3rem;
+  border-bottom: 1px solid var(--black25);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 2rem;
+  box-shadow: 0 3px 3px var(--black25);
+  color: var(--black80);
+}
+
+.pageHeader .headerProfileContainer {
+  position: relative;
+}
+
+.pageHeader .headerProfileOptionsCheckbox {
+  position: absolute;
+  opacity: 0;
+}
+
+.pageHeader .headerProfileContainer > label {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.pageHeader .headerProfileContainer .arrowSvg {
+  transition: transform 0.2s;
+  width: 20px;
+  height: 20px;
+}
+
+.pageHeader
+  .headerProfileContainer
+  .headerProfileOptionsCheckbox:checked
+  ~ label
+  .arrowSvg {
+  transform: rotate(-90deg);
+}
+
+.pageHeader .headerProfile {
+  gap: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.pageHeader .headerProfile .name {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.pageHeader .headerProfile .matricula {
+  font-size: 1rem;
+}
+
+.pageHeader .headerProfileContainer .options {
+  position: absolute;
+  list-style: none;
+  font-size: 1rem;
+  border: 2px solid var(--black25);
+  background-color: white;
+  border-radius: 5px;
+  display: none;
+  margin-top: 1rem;
+  z-index: 1;
+}
+
+.pageHeader
+  .headerProfileContainer
+  .headerProfileOptionsCheckbox:checked
+  ~ .options {
+  display: initial;
+}
+
+.pageHeader .headerProfileContainer .options li {
+  font-weight: bold;
+
+  transition: all 0.2s;
+}
+
+.pageHeader .headerProfileContainer .options li:hover {
+  background-color: var(--black10);
+  box-shadow: 0 3px 3px var(--black50);
+}
+
+.pageHeader .headerProfileContainer .options li * {
+  text-align: left;
+}
+
+.pageHeader .headerProfileContainer .options li > button {
+  width: 100%;
+  height: 100%;
+  padding: 0.6rem 0.6rem;
+}
+
+.mainBody {
+  margin-top: 3rem;
+  padding: 0 2rem;
+}
+
+.mainBody .activities {
+  width: 70%;
+}
+
+@media (max-width: 800px) {
+  .mainBody .activities {
+    width: 100%;
+  }
+}
+
+.mainBody .activities header {
+  display: flex;
+  border-bottom: 1px solid var(--black25);
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 1rem;
+}
+
+.mainBody .activities header h2 {
+  font-size: 2rem;
+  opacity: 0.9;
+}
+
+.mainBody .activities .filterBar {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.mainBody .activities .filterBar > li > select,
+.mainBody .activities .filterBar > li input[type="date"] {
+  width: 9rem;
+  cursor: pointer;
+  font: inherit;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  background-image: linear-gradient(to top, var(--black10) -30%, transparent);
+  border: 1px solid rgb(133, 133, 133);
+}
+
+.mainBody .activities .filterBar > li > select:hover {
+  background-image: linear-gradient(
+    to bottom,
+    var(--black10) -30%,
+    transparent
+  );
+}
+
+.mainBody .activities .filterBar .presentationBetween {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+@media (max-width: 500px) {
+  .mainBody .activities .filterBar .presentationBetween {
+    align-items: flex-start;
+  }
+}
+
+.mainBody .activities .filterBar .presentationBetween .dateInputs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.mainBody .activities .filterBar > li input[type="date"] {
+  position: relative;
+}
+
+.mainBody
+  .activities
+  .filterBar
+  > li
+  input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 0;
+}
