@@ -1,4 +1,4 @@
-import { AccountProvider } from "../contexts/accountContext";
+import { AccountProvider } from "../contexts/AccountContext";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {

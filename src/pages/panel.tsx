@@ -1,7 +1,7 @@
 import styles from "../styles/pages/Panel.module.css";
 import Head from "next/head";
 import { useContext, useEffect } from "react";
-import { AccountContext } from "../contexts/accountContext";
+import { AccountContext } from "../contexts/AccountContext";
 
 export default function Panel() {
   const { account, setAccount } = useContext(AccountContext);
