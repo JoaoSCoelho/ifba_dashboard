@@ -3,34 +3,118 @@
 }
 
 .pageHeader {
-  height: 80px;
+  height: 5.3rem;
   font-size: 1.3rem;
   border-bottom: 1px solid var(--black25);
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 2rem;
+  padding: 1rem;
   box-shadow: 0 3px 3px var(--black25);
   color: var(--black80);
 }
 
-.pageHeader .headerProfileContainer {
-  position: relative;
+.pageHeader .headerCountersContainer {
+  display: flex;
 }
 
-.pageHeader .headerProfileOptionsCheckbox {
+.pageHeader .headerCounters {
+  position: relative;
+  list-style: none;
+}
+
+.pageHeader .headerCounter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+  border-left: 1px solid var(--black25);
+  padding: 0 1rem;
+}
+
+.pageHeader .headerCounter p {
+  font-size: 1rem;
+}
+
+.pageHeader .headerCounter strong {
+  font-size: 1.4rem;
+}
+
+.pageHeader .headerCountersContainer .arrowSvg {
+  transform: rotate(180deg);
+  display: none;
+}
+
+.pageHeader
+  .headerCountersContainer
+  .headerCountersCheckbox:checked
+  ~ label
+  .arrowSvg {
+  transform: rotate(270deg);
+}
+
+@media (max-width: 800px) {
+  .pageHeader {
+    justify-content: space-between;
+  }
+
+  .pageHeader .headerCountersContainer {
+    display: initial;
+  }
+
+  .pageHeader .headerCountersContainer label {
+    padding-right: 1rem;
+    border-right: 1px solid var(--black25);
+  }
+
+  .pageHeader .headerCountersContainer .arrowSvg {
+    display: initial;
+  }
+
+  .pageHeader .headerCounters {
+    position: absolute;
+    border: 2px solid var(--black25);
+    background-color: var(--background);
+    padding: 1rem 0;
+    margin-top: 1rem;
+    z-index: 1;
+    display: none;
+  }
+
+  .pageHeader
+    .headerCountersContainer
+    .headerCountersCheckbox:checked
+    ~ .headerCounters {
+    display: initial;
+  }
+
+  .pageHeader .headerCounter {
+    border: none;
+  }
+}
+
+.pageHeader .headerProfileContainer {
+  position: relative;
+  border-left: 1px solid var(--black25);
+  padding: 0 1rem;
+}
+
+.pageHeader .headerProfileOptionsCheckbox,
+.pageHeader .headerCountersCheckbox {
   position: absolute;
   opacity: 0;
 }
 
-.pageHeader .headerProfileContainer > label {
+.pageHeader .headerProfileContainer > label,
+.pageHeader .headerCountersContainer > label {
   display: flex;
   cursor: pointer;
   align-items: center;
   gap: 0.7rem;
 }
 
-.pageHeader .headerProfileContainer .arrowSvg {
+.pageHeader .arrowSvg {
   transition: transform 0.2s;
   width: 20px;
   height: 20px;
@@ -65,7 +149,7 @@
   list-style: none;
   font-size: 1rem;
   border: 2px solid var(--black25);
-  background-color: white;
+  background-color: var(--background);
   border-radius: 5px;
   display: none;
   margin-top: 1rem;
