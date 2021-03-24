@@ -8,8 +8,32 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "10.0.9",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^8.2.0",
+    "express-rate-limit": "^5.2.6",
+    "firebase": "^8.3.1",
+    "fs": "0.0.1-security",
+    "http": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "next": "10.0.7",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-router-dom": "^5.2.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/express-rate-limit": "^5.1.1",
+    "@types/firebase": "^3.2.1",
+    "@types/jsonwebtoken": "^8.5.1",
+    "@types/node": "^14.14.35",
+    "@types/node-fetch": "^2.5.8",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/uuid": "^8.3.0",
+    "http-proxy": "^1.18.1",
+    "typescript": "^4.2.3"
   }
 }
