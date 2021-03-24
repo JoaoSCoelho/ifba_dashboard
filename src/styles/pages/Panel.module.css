@@ -33,14 +33,6 @@
   padding: 0 1rem;
 }
 
-.pageHeader .headerCounter p {
-  font-size: 1rem;
-}
-
-.pageHeader .headerCounter strong {
-  font-size: 1.4rem;
-}
-
 .pageHeader .headerCountersContainer .arrowSvg {
   transform: rotate(180deg);
   display: none;
@@ -52,6 +44,14 @@
   ~ label
   .arrowSvg {
   transform: rotate(270deg);
+}
+
+.pageHeader .headerCounter p {
+  font-size: 1rem;
+}
+
+.pageHeader .headerCounter strong {
+  font-size: 1.4rem;
 }
 
 @media (max-width: 800px) {
@@ -66,6 +66,7 @@
   .pageHeader .headerCountersContainer label {
     padding-right: 1rem;
     border-right: 1px solid var(--black25);
+    cursor: pointer;
   }
 
   .pageHeader .headerCountersContainer .arrowSvg {
@@ -112,6 +113,10 @@
   cursor: pointer;
   align-items: center;
   gap: 0.7rem;
+}
+
+.pageHeader .headerCountersContainer > label {
+  cursor: auto;
 }
 
 .pageHeader .arrowSvg {
