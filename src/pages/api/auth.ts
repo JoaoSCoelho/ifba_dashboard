@@ -41,6 +41,9 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     // @ts-ignore
     return res.status(400).send("Bad request!");
 
+  // @ts-ignore
+  const keepConnected = JSON.parse(req.query?.keepConnected || null) || false;
+  console.log(keepConnected);
   const accounts = firestore.collection("accounts");
   const filteredAccounts = await accounts // @ts-ignore
     .where("acessKey", "==", req.body.acessKey)
@@ -55,9 +58,15 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
   return res.status(200).json({
     account,
     // @ts-ignore
-    token: jwt.sign({ account: account.id }, process.env.SECRET, {
-      // @ts-ignore
-      expiresIn: `${process.env.TOKEN_EXPIRES_TIME}h`,
-    }),
+    token: jwt.sign(
+      { account: account.id },
+      process.env.SECRET,
+      !keepConnected
+        ? {
+            // @ts-ignore
+            expiresIn: `${process.env.TOKEN_EXPIRES_TIME}h`,
+          }
+        : undefined
+    ),
   });
 };

@@ -70,6 +70,10 @@
   align-items: center;
 }
 
+.authContainer.invalidKey {
+  padding-bottom: 3rem;
+}
+
 @media (max-width: 550px) {
   .authContainer {
     flex-direction: column;
@@ -182,11 +186,19 @@
   fill: white;
 }
 
+.authForm .keepConnectedContainer {
+  display: flex;
+  gap: 0.3rem;
+  margin-top: 0.3rem;
+  align-items: center;
+  color: var(--black80);
+}
+
 .authForm .invalidKeyText {
   position: absolute;
   color: var(--if-red);
   font-size: 0.8rem;
-  top: 3.5rem;
+  top: 5rem;
   animation: invalidKeyText 0.2s;
 }
 
