@@ -54,6 +54,34 @@
   font-size: 1.4rem;
 }
 
+.pageHeader .headerProfileContainer {
+  position: relative;
+  border-left: 1px solid var(--black25);
+  padding: 0 1rem;
+}
+
+.pageHeader .headerProfileOptionsCheckbox,
+.pageHeader .headerCountersCheckbox,
+.mainBody .activities .activitiesFilterCheckbox,
+.mainBody .activities .newActivityCheckbox {
+  position: absolute;
+  opacity: 0;
+}
+
+.pageHeader .headerProfileContainer > label,
+.pageHeader .headerCountersContainer > label,
+.mainBody .activities .filterBarContainer > .labelContainer label,
+.mainBody .activities .newActivityContainer .labelContainer > label {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.pageHeader .headerCountersContainer > label {
+  cursor: auto;
+}
+
 @media (max-width: 800px) {
   .pageHeader {
     justify-content: space-between;
@@ -63,7 +91,7 @@
     display: initial;
   }
 
-  .pageHeader .headerCountersContainer label {
+  .pageHeader .headerCountersContainer > label {
     padding-right: 1rem;
     border-right: 1px solid var(--black25);
     cursor: pointer;
@@ -93,30 +121,6 @@
   .pageHeader .headerCounter {
     border: none;
   }
-}
-
-.pageHeader .headerProfileContainer {
-  position: relative;
-  border-left: 1px solid var(--black25);
-  padding: 0 1rem;
-}
-
-.pageHeader .headerProfileOptionsCheckbox,
-.pageHeader .headerCountersCheckbox {
-  position: absolute;
-  opacity: 0;
-}
-
-.pageHeader .headerProfileContainer > label,
-.pageHeader .headerCountersContainer > label {
-  display: flex;
-  cursor: pointer;
-  align-items: center;
-  gap: 0.7rem;
-}
-
-.pageHeader .headerCountersContainer > label {
-  cursor: auto;
 }
 
 .pageHeader .arrowSvg {
@@ -158,7 +162,7 @@
   border-radius: 5px;
   display: none;
   margin-top: 1rem;
-  z-index: 1;
+  z-index: 2;
 }
 
 .pageHeader
@@ -170,7 +174,6 @@
 
 .pageHeader .headerProfileContainer .options li {
   font-weight: bold;
-
   transition: all 0.2s;
 }
 
@@ -218,54 +221,169 @@
   opacity: 0.9;
 }
 
-.mainBody .activities .filterBar {
-  display: flex;
-  list-style: none;
-  gap: 1rem;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  margin-bottom: 0.5rem;
+.mainBody .activities .filterBarContainer > .labelContainer,
+.mainBody .activities .newActivityContainer > .labelContainer,
+.mainBody .activities .filterBar .buttonsContainer > button,
+.mainBody .activities .newActivityForm .buttonsContainer > button {
+  overflow: hidden;
+  transition: color 0.2s;
+  width: fit-content;
+  position: relative;
+  color: var(--alive-blue);
+  margin-bottom: 0.3rem;
+}
+.mainBody .activities .filterBarContainer > .labelContainer label,
+.mainBody .activities .newActivityContainer > .labelContainer label,
+.mainBody .activities .filterBar .buttonsContainer > button,
+.mainBody .activities .newActivityForm .buttonsContainer > button {
+  padding: 0.4rem 0.8rem;
+
+  filter: grayscale(0.5);
+  position: relative;
+  z-index: 1;
 }
 
-.mainBody .activities .filterBar > li > select,
-.mainBody .activities .filterBar > li input[type="date"] {
-  width: 9rem;
-  cursor: pointer;
-  font: inherit;
+.mainBody .activities .filterBarContainer > .labelContainer:hover,
+.mainBody .activities .newActivityContainer > .labelContainer:hover,
+.mainBody .activities .filterBar .buttonsContainer > button:hover,
+.mainBody .activities .newActivityForm .buttonsContainer > button:hover {
   border-radius: 5px;
-  padding: 0.5rem 1rem;
-  background-image: linear-gradient(to top, var(--black10) -30%, transparent);
-  border: 1px solid rgb(133, 133, 133);
+  color: white;
 }
 
-.mainBody .activities .filterBar > li > select:hover {
-  background-image: linear-gradient(
-    to bottom,
-    var(--black10) -30%,
-    transparent
-  );
+.mainBody .activities .filterBarContainer > .labelContainer::after,
+.mainBody .activities .filterBar .buttonsContainer > button::after,
+.mainBody .activities .newActivityForm .buttonsContainer > button::after,
+.mainBody .activities .newActivityContainer > .labelContainer::after {
+  height: 10%;
+  width: 100%;
+  content: "";
+  transition: height 0.2s;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  filter: grayscale(0.5);
+  background-color: var(--alive-blue);
 }
 
-.mainBody .activities .filterBar .presentationBetween {
-  display: flex;
+.mainBody .activities .filterBarContainer > .labelContainer:hover::after,
+.mainBody .activities .filterBar .buttonsContainer > button:hover::after,
+.mainBody .activities .newActivityForm .buttonsContainer > button:hover::after,
+.mainBody .activities .newActivityContainer > .labelContainer:hover::after {
+  height: 100%;
+}
+
+.mainBody .activities .filterBarContainer > .labelContainer label > svg path,
+.mainBody
+  .activities
+  .newActivityContainer
+  > .labelContainer
+  label
+  > svg
+  polygon {
+  transition: fill 0.2s;
+  fill: var(--alive-blue);
+}
+
+.mainBody
+  .activities
+  .filterBarContainer
+  > .labelContainer:hover
+  label
+  > svg
+  path {
+  fill: white;
+}
+
+.mainBody .activities .filterBarContainer > .labelContainer label > p,
+.mainBody .activities .filterBar .buttonsContainer > button,
+.mainBody .activities .newActivityForm .buttonsContainer > button {
+  font-weight: 700;
+}
+
+.mainBody .activities .filterBarListContainer,
+.mainBody .activities .newActivityFormContainer {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 2;
+  background-color: var(--black50);
+  display: none;
   align-items: center;
+  justify-content: center;
+}
+
+.mainBody
+  .activities
+  .activitiesFilterCheckbox:checked
+  ~ .filterBarListContainer,
+.mainBody .activities .newActivityCheckbox:checked ~ .newActivityFormContainer {
+  display: flex;
+}
+
+.mainBody .activities .filterBarListContainer > label,
+.mainBody .activities .newActivityFormContainer > label {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.mainBody .activities .filterBar,
+.mainBody .activities .newActivityContainer .newActivityForm {
+  list-style: none;
+  margin-bottom: 0.5rem;
+  padding: 1.5rem;
+  gap: 1rem;
+  display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  background-color: white;
+  border-radius: 5px;
+  z-index: 3;
+  max-width: 90%;
+  box-shadow: 0 0 15px var(--black50);
 }
 
-@media (max-width: 500px) {
-  .mainBody .activities .filterBar .presentationBetween {
-    align-items: flex-start;
-  }
-}
-
-.mainBody .activities .filterBar .presentationBetween .dateInputs {
+.mainBody .activities .filterBar > li {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+  padding: 1rem 0;
+  align-items: center;
+  border-bottom: 1px solid var(--black25);
 }
 
-.mainBody .activities .filterBar > li input[type="date"] {
+.mainBody .activities .filterBar > li > select,
+.mainBody .activities .filterBar > li input[type="date"],
+.mainBody .activities .newActivityForm .inputsContainer select,
+.mainBody .activities .newActivityForm .inputsContainer input[type="date"] {
+  cursor: pointer;
+  font: inherit;
+  width: min-content;
+  border: none;
+  border-bottom: 2px solid var(--black25);
+  padding: 0.2rem;
+}
+
+.mainBody .activities .filterBar > li > select:hover,
+.mainBody .activities .filterBar > li input[type="date"]:hover,
+.mainBody .activities .newActivityForm .inputsContainer select:hover,
+.mainBody
+  .activities
+  .newActivityForm
+  .inputsContainer
+  input[type="date"]:hover {
+  background-color: var(--black10);
+  border-radius: 5px;
+}
+
+.mainBody .activities .filterBar > li input[type="date"],
+.mainBody .activities .newActivityForm .inputsContainer input[type="date"] {
+  width: 8rem;
   position: relative;
 }
 
@@ -273,7 +391,286 @@
   .activities
   .filterBar
   > li
+  input[type="date"]::-webkit-calendar-picker-indicator,
+.mainBody
+  .activities
+  .newActivityForm
+  .inputsContainer
   input[type="date"]::-webkit-calendar-picker-indicator {
   position: absolute;
   right: 0;
+}
+
+.mainBody .activities .filterBar .presentationBetween .dateInputs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.mainBody .activities .filterBar .buttonsContainer,
+.mainBody .activities .newActivityForm .buttonsContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.mainBody .activities .filterBar .buttonsContainer > button,
+.mainBody .activities .newActivityForm .buttonsContainer > button {
+  margin-bottom: 0;
+}
+
+.mainBody .activities .filterBar .buttonsContainer > .cancel,
+.mainBody .activities .newActivityForm .buttonsContainer > .cancel {
+  color: var(--if-red);
+  padding: 0;
+}
+
+.mainBody .activities .filterBar .buttonsContainer > .cancel::after,
+.mainBody .activities .newActivityForm .buttonsContainer > .cancel::after {
+  background-color: var(--if-red);
+}
+
+.mainBody .activities .filterBar .buttonsContainer > button > *,
+.mainBody .activities .newActivityForm .buttonsContainer > button > * {
+  z-index: 2;
+  position: relative;
+}
+
+.mainBody .activities .filterBar .buttonsContainer > button label,
+.mainBody .activities .newActivityForm .buttonsContainer > button label {
+  cursor: inherit;
+  width: 100%;
+  height: 100%;
+  padding: 0.4rem 0.8rem;
+}
+
+.mainBody .activities .newActivityContainer > .labelContainer {
+  color: var(--alive-green);
+}
+
+.mainBody .activities .newActivityContainer > .labelContainer::after {
+  background-color: var(--alive-green);
+}
+
+.mainBody
+  .activities
+  .newActivityContainer
+  > .labelContainer:hover
+  > label
+  > svg
+  polygon {
+  fill: white;
+}
+
+.mainBody .activities .newActivityContainer .labelContainer > label {
+  font-weight: 700;
+}
+
+.mainBody .activities .newActivityContainer .labelContainer > label svg {
+  height: 15px;
+  width: 15px;
+}
+
+.mainBody
+  .activities
+  .newActivityContainer
+  > .labelContainer
+  label
+  > svg
+  polygon {
+  fill: var(--alive-green);
+}
+
+.mainBody .activities .newActivityForm .inputsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mainBody .activities .newActivityForm .inputsContainer > div {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.mainBody
+  .activities
+  .newActivityForm
+  .inputsContainer
+  .inputActivityContainer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  height: 5rem;
+  width: 100%;
+  gap: 0;
+  margin-bottom: 1.2rem;
+}
+
+.mainBody .activities .newActivityForm .inputActivityContainer textarea {
+  border: 2px solid var(--black25);
+  border-radius: 5px;
+  height: 100%;
+  resize: none;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.mainBody
+  .activities
+  .newActivityForm
+  .inputActivityContainer
+  .inputActivityPlaceholder {
+  position: absolute;
+  left: 0.5rem;
+  font-size: 0.9rem;
+  z-index: 0;
+  transition: all 0.2s;
+  background: white;
+  color: var(--black80);
+}
+
+.mainBody
+  .activities
+  .newActivityForm
+  .inputActivityContainer
+  textarea:focus
+  ~ .inputActivityPlaceholder,
+.mainBody
+  .activities
+  .newActivityForm
+  .inputActivityContainer
+  textarea.inputed
+  ~ .inputActivityPlaceholder {
+  font-size: 0.8rem;
+  transform: translateY(-2.5rem);
+  padding: 0 0.2rem;
+}
+
+.mainBody
+  .activities
+  .newActivityForm
+  .inputActivityContainer
+  .inputActivityObservation {
+  font-size: 0.8rem;
+}
+
+.mainBody
+  .activities
+  .newActivityForm
+  .inputActivityContainer
+  .inputActivityObservation::before {
+  content: "*";
+  color: var(--black50);
+  font-size: 1rem;
+}
+
+.mainBody .activities .newActivityForm .buttonsContainer {
+  margin: 0;
+}
+
+.mainBody .activities .newActivityForm .buttonsContainer > button {
+  color: var(--alive-green);
+}
+
+.mainBody .activities .newActivityForm .buttonsContainer > button::after {
+  background-color: var(--alive-green);
+}
+
+.mainBody .activitiesCards {
+  padding: 2rem 0;
+}
+
+.mainBody .activitiesCards .activityCard {
+  background-color: white;
+  border-radius: 10px;
+  border-bottom: 3px solid var(--black10);
+  box-shadow: 0 3px 15px var(--black25);
+  padding: 1rem 1rem 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.mainBody .activitiesCards .activityCard.pending {
+  border-bottom: 3px solid orange;
+}
+
+.mainBody .activitiesCards .activityCard ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mainBody .activitiesCards .activityCard > ul > li {
+  max-width: 40%;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: rgb(250, 250, 250);
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 3px var(--black10);
+}
+
+.mainBody .activitiesCards .activityCard ul li > *:nth-child(2) {
+  height: 100%;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.mainBody .activitiesCards .activityCard ul li.activityName {
+  min-width: min(300px, 100%);
+  max-width: calc(100% - 600px);
+}
+
+.mainBody .activitiesCards .activityCard ul li.activityName p {
+  text-align: justify;
+}
+
+.mainBody .activitiesCards .activityCard ul li.period .datesContainer {
+  display: flex;
+  align-items: center;
+}
+
+.mainBody .activitiesCards .activityCard ul li.period .dates {
+  flex-wrap: wrap;
+  display: flex;
+  gap: 0.3rem;
+  height: fit-content;
+  width: fit-content;
+  justify-content: center;
+}
+
+.mainBody .activitiesCards .activityCard ul li.period .dates div,
+.mainBody .activitiesCards .activityCard ul li.matter p {
+  background-color: var(--alive-blue25);
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+}
+
+.mainBody .activitiesCards .activityCard ul li.period .dates span {
+  height: fit-content;
+}
+
+.mainBody .activitiesCards .activityCard .createdByInDate {
+  border-top: 1px solid var(--black25);
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--black80);
+}
+
+.mainBody .activities .activitiesPreMessage {
+  color: gray;
+  font-size: 2rem;
+  font-family: monospace;
+  text-align: center;
 }

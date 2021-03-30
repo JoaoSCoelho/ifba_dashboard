@@ -13,10 +13,13 @@ export default function Auth() {
 
   function submit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
+    const loadingContainer = document.getElementById("loading-container");
+    loadingContainer.style.display = "flex";
 
     if (!acessKey) {
       setServerError("");
       setServerError("CHAVE DE ACESSO NEGADA");
+      loadingContainer.style.display = "none";
       return;
     }
 
@@ -30,10 +33,11 @@ export default function Auth() {
           "expiresIn",
           JSON.stringify(Date.now() + 1000 * 60 * 60 * 48)
         );
+        loadingContainer.style.display = "none";
         router.push("/panel");
       })
       .catch((e) => {
-        console.log(e.response?.status);
+        loadingContainer.style.display = "none";
         if (e.response?.status === 400) {
           setServerError("");
           setServerError("CHAVE DE ACESSO NEGADA!");
@@ -53,6 +57,34 @@ export default function Auth() {
       <Head>
         <title>Autenticação</title>
       </Head>
+      <div
+        className={styles.loading}
+        id="loading-container"
+        style={{ display: "none" }}
+      >
+        <svg width="180" height="180">
+          <circle
+            className={styles.loadingCircle}
+            fill="none"
+            stroke="white"
+            strokeWidth="3"
+            cx="93"
+            cy="93"
+            r="84"
+          />
+
+          <circle
+            className={styles.loadingCircleInter}
+            fill="none"
+            stroke="white"
+            strokeWidth="3"
+            cx="93"
+            cy="86"
+            r="78"
+          />
+        </svg>
+        <p>Verificando...</p>
+      </div>
 
       <main
         className={`${styles.authContainer} ${

@@ -1,11 +1,15 @@
 :root {
   --background-green: #dbe4d8;
   --background: #f5f5f5;
+  --light-gray: #c9c9c9;
   --black10: #0000001a;
   --black25: #00000040;
   --black50: #00000080;
   --black80: #000000cc;
   --alive-blue: #0c75ff;
+  --alive-blue25: #0c75ff40;
+  --alive-blue50: #0c75ff80;
+  --alive-green: #00c721;
   --if-green: #71c837;
   --if-red: #d40000;
 }
