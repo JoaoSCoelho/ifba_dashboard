@@ -364,6 +364,7 @@
   cursor: pointer;
   font: inherit;
   width: min-content;
+  background-color: white;
   border: none;
   border-bottom: 2px solid var(--black25);
   padding: 0.2rem;
