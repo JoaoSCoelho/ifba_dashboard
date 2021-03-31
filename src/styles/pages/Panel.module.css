@@ -740,11 +740,11 @@
 .mainBody .activitiesCards .activityCard ul li.activityName {
   min-width: min(300px, 100%);
   max-width: calc(100% - 600px);
-  display: initial;
 }
 
 .mainBody .activitiesCards .activityCard ul li.activityName p {
   text-align: justify;
+  display: initial;
 }
 
 .mainBody .activitiesCards .activityCard ul li.period .datesContainer {
