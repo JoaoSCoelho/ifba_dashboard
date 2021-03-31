@@ -1,5 +1,6 @@
 import styles from "../styles/pages/Panel.module.css";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import {
   ChangeEvent,
   createElement,
@@ -49,11 +50,13 @@ interface IMatter {
 }
 
 export default function Panel() {
-  let { account, setAccount } = useContext(AccountContext);
+  let { account, setAccount, setLocalAccount } = useContext(AccountContext);
   const [orderBy, setOrderBy] = useState<
     "recent" | "older" | "farthest-presentation" | "closest-presentation"
   >("recent");
-  const [filter, setFilter] = useState<"all" | "pendind" | "finalized">("all");
+  const [situation, setSituation] = useState<"all" | "pendind" | "finalized">(
+    "all"
+  );
   const [between, setBetween] = useState<{ start?: number; end?: number }>({});
   const [perPage, setPerPage] = useState<20 | 40 | 100>(20);
   const [activities, setActivities] = useState<IActivity[]>([]);
@@ -63,12 +66,14 @@ export default function Panel() {
   const [filterAuthor, setFilterAuthor] = useState<"all" | "my" | "others">(
     "all"
   );
+  const [state, setState] = useState<"all" | "concluded" | "unconcluded">();
   const [newActivity, setNewActivity] = useState<INewActivity>({
     author: account?.id,
     class: account?.class,
   });
   const [editActivity, setEditActivity] = useState<IEditActivity>();
   const mdConverter = new Converter();
+  const router = useRouter();
 
   function getActivities() {
     axios
@@ -77,7 +82,8 @@ export default function Panel() {
         params: {
           page,
           order: orderBy,
-          filter,
+          situation,
+          state,
           between,
           author: filterAuthor,
           activitiesPerPage: perPage,
@@ -210,6 +216,7 @@ export default function Panel() {
     if (account.concludedActivities?.includes(activity.id)) {
       const newConcludedActivities = account.concludedActivities.reduce(
         (prev, curr) => {
+          console.log(prev, curr);
           curr !== activity.id ? prev.push(curr) : prev;
           return prev;
         },
@@ -229,13 +236,21 @@ export default function Panel() {
           }
         )
         .then(() => {
-          account = { ...account, concludedActivities: newConcludedActivities };
-          localStorage.setItem("account", JSON.stringify(account));
-          account.concludedActivities.map((id) =>
-            document
-              .getElementById(`activity-${activity.id}`)
-              ?.classList.remove(styles.concluded)
+          setLocalAccount({
+            ...account,
+            concludedActivities: newConcludedActivities,
+          });
+          localStorage.setItem(
+            "account",
+            JSON.stringify({
+              ...account,
+              concludedActivities: newConcludedActivities,
+            })
           );
+
+          document
+            .getElementById(`activity-${activity.id}`)
+            ?.classList.remove(styles.concluded);
         })
         .catch(() => {
           alert("Ocorreu um erro ao desmarcar esta atividade como concluída!");
@@ -256,20 +271,37 @@ export default function Panel() {
         }
       )
       .then(() => {
-        account = {
+        setLocalAccount({
           ...account,
           concludedActivities: [...account.concludedActivities, activity.id],
-        };
-        localStorage.setItem("account", JSON.stringify(account));
+        });
+        localStorage.setItem(
+          "account",
+          JSON.stringify({
+            ...account,
+            concludedActivities: [...account.concludedActivities, activity.id],
+          })
+        );
         account.concludedActivities.map((id) =>
           document
-            .getElementById(`activity-${activity.id}`)
+            .getElementById(`activity-${id}`)
             ?.classList.add(styles.concluded)
         );
+
+        document
+          .getElementById(`activity-${activity.id}`)
+          ?.classList.add(styles.concluded);
       })
       .catch(() => {
         alert("Ocorreu um erro ao marcar esta atividade como concluída!");
       });
+  }
+
+  function exitSession() {
+    localStorage.removeItem("account");
+    localStorage.removeItem("expiresIn");
+    localStorage.removeItem("acessToken");
+    router.push("/");
   }
 
   useEffect(setAccount, []);
@@ -359,11 +391,11 @@ export default function Panel() {
                 <button>Meus dados</button>
               </li>
             </a>
-            <li>
+            {/* <li>
               <button>Alterar chave de acesso</button>
-            </li>
+            </li> */}
             <li>
-              <button>Sair</button>
+              <button onClick={exitSession}>Sair</button>
             </li>
           </ul>
         </div>
@@ -441,15 +473,27 @@ export default function Panel() {
                       </select>
                     </li>
                     <li>
-                      <strong>Filtro</strong>
+                      <strong>Situação</strong>
                       <select
-                        name="filter"
-                        id="activities-filter-selector" // @ts-ignore
-                        onChange={(e) => setFilter(e.target.value)}
+                        name="situation"
+                        id="activities-situation-selector" // @ts-ignore
+                        onChange={(e) => setSituation(e.target.value)}
                       >
                         <option value="all">Todos</option>
                         <option value="pending">Pendentes</option>
                         <option value="finalized">Finalizados</option>
+                      </select>
+                    </li>
+                    <li>
+                      <strong>Estado</strong>
+                      <select
+                        name="state"
+                        id="activities-state-selector" // @ts-ignore
+                        onChange={(e) => setState(e.target.value)}
+                      >
+                        <option value="all">Todos</option>
+                        <option value="concluded">Concluídos</option>
+                        <option value="unconcluded">Não concluídos</option>
                       </select>
                     </li>
                     <li
@@ -677,8 +721,9 @@ export default function Panel() {
                           ? styles.finalized
                           : styles.pending
                       } ${
-                        account?.concludedActivities?.includes(activity.id) &&
-                        styles.concluded
+                        account?.concludedActivities?.includes(activity.id)
+                          ? styles.concluded
+                          : ""
                       }`}
                     >
                       <ul>

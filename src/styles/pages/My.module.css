@@ -1,0 +1,103 @@
+.mainContainer {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2rem 0;
+}
+
+.mainContainer .backToPanel,
+.mainContainer .deleteAccount {
+  border-radius: 5px;
+  background-color: var(--alive-blue);
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.mainContainer .profileContainer {
+  max-width: 90%;
+  margin: 2rem 0;
+}
+
+.mainContainer .profile > h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.mainContainer .profile > table {
+  font-size: 1.2rem;
+}
+
+.mainContainer .profile > table tbody {
+  gap: 1rem;
+  display: grid;
+}
+
+.mainContainer .profile > table tbody tr {
+  gap: 1rem;
+  display: grid;
+  max-width: 400px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.mainContainer .profile > table th {
+  text-align: left;
+}
+
+.mainContainer .profile > table .number {
+  font-family: monospace;
+  font-weight: 500;
+}
+
+.mainContainer .profile > table .id,
+.mainContainer .profile > table .matricula,
+.mainContainer .profile > table .class,
+.mainContainer .profile > table .yes,
+.mainContainer .profile > table .no,
+.mainContainer .profile > table .createdAt {
+  border-radius: 5px;
+  padding: 0.2rem 0.5rem;
+  background-color: var(--black10);
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.mainContainer .profile > table .class,
+.mainContainer .profile > table .yes,
+.mainContainer .profile > table .no,
+.mainContainer .profile > table .createdAt {
+  font-family: "Roboto", sans-serif;
+  width: fit-content;
+  height: 100%;
+  font-size: 0.8rem;
+  background-color: var(--alive-blue50);
+}
+
+.mainContainer .profile > table .yes,
+.mainContainer .profile > table .no,
+.mainContainer .profile > table .createdAt {
+  font-size: 1rem;
+}
+
+.mainContainer .profile > table .no {
+  background-color: var(--if-red-light);
+}
+
+.mainContainer .profile > table .yes {
+  background-color: var(--if-green);
+}
+
+.mainContainer .profile > table .createdAt {
+  background-color: var(--alive-blue25);
+}
+
+.mainContainer .deleteAccount {
+  background-color: var(--if-red);
+}

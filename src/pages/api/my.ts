@@ -9,7 +9,7 @@ let rateLimitAccumulator: {
 }[] = [];
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
-  if (req.method !== "GET" && req.method !== "PUT")
+  if (req.method !== "GET" && req.method !== "PUT" && req.method !== "DELETE")
     // @ts-ignore
     return res.status(404).send("Not found!");
 
@@ -56,6 +56,10 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
   }
 
   const accounts = firestore.collection("accounts");
+  if (req.method === "DELETE") {
+    accounts.doc(String(decoded.account)).delete(); //@ts-ignore
+    return res.status(200).send("OK");
+  }
   const filteredAccounts = await accounts.doc(String(decoded.account)).get();
   const account = filteredAccounts.data();
   // @ts-ignore

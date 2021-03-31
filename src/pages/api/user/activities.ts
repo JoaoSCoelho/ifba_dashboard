@@ -58,7 +58,8 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
 
   const page = Number(req.query?.page) || 1; // @ts-ignore
   const order = req.query?.order || "recent"; // @ts-ignore
-  const filter = req.query?.filter || "all"; // @ts-ignore
+  const situation = req.query?.situation || "all"; // @ts-ignore
+  const state = req.query?.state || "all"; //@ts-ignore
   const author = req.query?.author || "all"; // @ts-ignore
   const between = JSON.parse(req.query?.between) || null; // @ts-ignore
   const activitiesPerPage = Number(req.query?.activitiesPerPage) || 20;
@@ -81,13 +82,17 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     if (order === "older") return a.createdTimestamp - b.createdTimestamp;
     if (order === "farthest-presentation")
       return (
-        Math.abs(b.presentationTimestamp - Date.now()) -
-        Math.abs(a.presentationTimestamp - Date.now())
+        b.presentationTimestamp -
+        Date.now() -
+        a.presentationTimestamp -
+        Date.now()
       );
     if (order === "closest-presentation")
       return (
-        Math.abs(a.presentationTimestamp - Date.now()) -
-        Math.abs(b.presentationTimestamp - Date.now())
+        a.presentationTimestamp -
+        Date.now() -
+        b.presentationTimestamp -
+        Date.now()
       );
     else return b.createdTimestamp - a.createdTimestamp;
   });
@@ -96,15 +101,23 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
       if (x.presentationTimestamp < (between?.start || 0)) return false;
       if (x.presentationTimestamp > (between?.end || 999999999999999))
         return false;
-      if (filter === "all") return true;
-      if (filter === "pending") return x.presentationTimestamp > Date.now();
+      if (situation === "all") return true;
+      if (situation === "pending") return x.presentationTimestamp > Date.now();
       console.log(x.presentationTimestamp, Date.now());
-      if (filter === "finalized") return x.presentationTimestamp <= Date.now();
+      if (situation === "finalized")
+        return x.presentationTimestamp <= Date.now();
     })
     .filter((x) => {
       if (author === "all") return true;
       if (author === "my") return x.author === account.id;
       if (author === "others") return x.author !== account.id;
+    })
+    .filter((x) => {
+      if (state === "all") return true;
+      if (state === "concluded")
+        return account.concludedActivities.includes(x.id);
+      if (state === "unconcluded")
+        return !account.concludedActivities.includes(x.id);
     });
   const activitiesDataPaginated = activitiesDataSortedFiltered.reduce(
     (prev, curr, index) => {

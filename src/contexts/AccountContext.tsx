@@ -1,5 +1,12 @@
 import axios from "axios";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { useRouter } from "next/router";
 
 export interface IAccount {
@@ -13,11 +20,13 @@ export interface IAccount {
   isTeatcher: boolean;
   matricula: string;
   concludedActivities: number[];
+  isLeader: boolean;
 }
 
 export interface IAccountContextData {
   account?: IAccount;
   setAccount(): void;
+  setLocalAccount?: Dispatch<SetStateAction<IAccount>>;
 }
 
 export const AccountContext = createContext<IAccountContextData>({
@@ -53,7 +62,7 @@ export function AccountProvider({ children }: IAccountProviderProps) {
           localStorage.setItem("account", JSON.stringify(account));
           localStorage.setItem(
             "expiresIn",
-            JSON.stringify(Date.now() + 1000 * 60 * 60 * 48)
+            JSON.stringify(Date.now() + 1000 * 60 * 10)
           );
           setAccount(JSON.parse(localStorage.getItem("account")));
           router.reload();
@@ -68,7 +77,11 @@ export function AccountProvider({ children }: IAccountProviderProps) {
 
   return (
     <AccountContext.Provider
-      value={{ account, setAccount: setAccountWithDatabase }}
+      value={{
+        account,
+        setAccount: setAccountWithDatabase,
+        setLocalAccount: setAccount,
+      }}
     >
       {children}
     </AccountContext.Provider>

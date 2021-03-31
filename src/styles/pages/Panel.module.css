@@ -367,6 +367,8 @@
   z-index: 3;
   max-width: 90%;
   box-shadow: 0 0 15px var(--black50);
+  overflow-y: auto;
+  max-height: 95vh;
 }
 
 .mainBody .activities .filterBar > li {
@@ -700,7 +702,7 @@
 }
 
 .mainBody .activitiesCards .activityCard.concluded {
-  background-color: var(--background-green);
+  background-color: var(--background-green-light);
 }
 
 .mainBody .activitiesCards .activityCard ul {
@@ -722,6 +724,10 @@
   padding: 0.5rem;
   border-radius: 5px;
   box-shadow: inset 1px 1px 3px var(--black10);
+}
+
+.mainBody .activitiesCards .activityCard.concluded > ul > li {
+  background-color: var(--background-green-darker);
 }
 
 .mainBody .activitiesCards .activityCard ul li > *:nth-child(2) {

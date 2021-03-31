@@ -12,7 +12,12 @@
   --alive-green: #00c721;
   --if-green: #71c837;
   --background-green: #4dff7c;
+  --background-green50: #4dff7c80;
+  --background-green25: #4dff7c40;
+  --background-green-light: #90ffad;
+  --background-green-darker: #85f2a2;
   --if-red: #d40000;
+  --if-red-light: #cf4444;
 }
 
 body {
