@@ -9,8 +9,9 @@ let rateLimitAccumulator: {
 }[] = [];
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
-  // @ts-ignore
-  if (req.method !== "POST") return res.status(404).send("Not found!");
+  if (req.method !== "POST" && req.method !== "PUT" && req.method !== "DELETE")
+    // @ts-ignore
+    return res.status(404).send("Not found!");
 
   rateLimitAccumulator = rateLimitAccumulator.filter(
     (x) => Date.now() - x.timestamp <= 1000 * 60
@@ -19,7 +20,7 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     rateLimitAccumulator.find(
       (x) =>
         x.ip === req.socket.remoteAddress &&
-        x.times > 5 &&
+        x.times > 20 &&
         Date.now() - x.timestamp < 1000 * 60
     )
   )
@@ -63,38 +64,79 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
   const mattersCollection = await firestore.collection("matters").get();
   const mattersData = mattersCollection.docs.map((doc) => doc.data());
 
-  // @ts-ignore
-  if (!req.body?.presentationTimestamp)
+  if (req.method === "POST" || req.method === "PUT") {
     // @ts-ignore
-    return res.status(400).send("Bad request!"); // @ts-ignore
-  if (!req.body.class) return res.status(400).send("Bad request!"); // @ts-ignore
-  if (req.body.class !== account.class && !account.isAdmin)
-    // @ts-ignore
-    return res.status(400).send("Bad request!"); // @ts-ignore
-  if (!req.body.showedTimestamp) return res.status(400).send("Bad request!"); // @ts-ignore
-  if (!req.body.activity) return res.status(400).send("Bad request!"); // @ts-ignore
-  if (!req.body.matter) return res.status(400).send("Bad request!"); // @ts-ignore
-  if (!mattersData.map((matter) => matter.id).includes(req.body.matter))
-    // @ts-ignore
-    return res.status(400).send("Bad request!"); // @ts-ignore
-  if (!req.body.author) return res.status(400).send("Bad request!"); // @ts-ignore
-  if (req.body.author !== account.id && !account.isAdmin)
-    // @ts-ignore
-    return res.status(400).send("Bad request!");
+    if (!req.body?.presentationTimestamp)
+      // @ts-ignore
+      return res.status(400).send("Bad request!"); // @ts-ignore
+    if (!req.body.class) return res.status(400).send("Bad request!"); // @ts-ignore
+    if (req.body.class !== account.class && !account.isAdmin)
+      // @ts-ignore
+      return res.status(400).send("Bad request!"); // @ts-ignore
+    if (!req.body.showedTimestamp) return res.status(400).send("Bad request!"); // @ts-ignore
+    if (!req.body.activity) return res.status(400).send("Bad request!"); // @ts-ignore
+    if (!req.body.matter) return res.status(400).send("Bad request!"); // @ts-ignore
+    if (!mattersData.map((matter) => matter.id).includes(req.body.matter))
+      // @ts-ignore
+      return res.status(400).send("Bad request!"); // @ts-ignore
+    if (!req.body.author) return res.status(400).send("Bad request!"); // @ts-ignore
+    if (req.body.author !== account.id && !account.isAdmin)
+      // @ts-ignore
+      return res.status(400).send("Bad request!");
+    if (req.method === "PUT") {
+      //@ts-ignore
+      if (!req.body.id) return res.status(400).send("Bad request!");
+    }
+  } else if (req.method === "DELETE") {
+    //@ts-ignore
+    if (!req.query?.id) return res.status(400).send("Bad request!");
+  }
 
   const activitiesCollection = firestore.collection("activities");
-  activitiesCollection.doc(String(Date.now())).set({
+  const timestamp = Date.now();
+  if (req.method === "POST") {
+    activitiesCollection.doc(String(timestamp)).set({
+      // @ts-ignore
+      activity: req.body.activity, // @ts-ignore
+      author: req.body.author, // @ts-ignore
+      class: req.body.class,
+      createdAt: new Date(timestamp),
+      createdTimestamp: timestamp,
+      updatedTimestamp: timestamp,
+      id: timestamp, // @ts-ignore
+      matter: req.body.matter, // @ts-ignore
+      presentationTimestamp: req.body.presentationTimestamp, // @ts-ignore
+      showedTimestamp: req.body.showedTimestamp,
+    });
+  } else if (req.method === "PUT") {
     // @ts-ignore
-    activity: req.body.activity, // @ts-ignore
-    author: req.body.author, // @ts-ignore
-    class: req.body.class,
-    createdAt: new Date(),
-    createdTimestamp: Date.now(),
-    id: Date.now(), // @ts-ignore
-    matter: req.body.matter, // @ts-ignore
-    presentationTimestamp: req.body.presentationTimestamp, // @ts-ignore
-    showedTimestamp: req.body.showedTimestamp,
-  });
+    const activityForEdit = //@ts-ignore
+    (await activitiesCollection.doc(String(req.body.id))?.get())?.data(); // @ts-ignore
+    if (!activityForEdit) return res.status(400).send("Bad request!");
+    //@ts-ignore
+    activitiesCollection.doc(String(req.body.id)).update({
+      //@ts-ignore
+      activity: req.body.activity, //@ts-ignore
+      author: req.body.author, // @ts-ignore
+      class: req.body.class,
+      updatedTimestamp: timestamp, //@ts-ignore
+      matter: req.body.matter, // @ts-ignore
+      presentationTimestamp: req.body.presentationTimestamp, // @ts-ignore
+      showedTimestamp: req.body.showedTimestamp,
+    });
+  } else if (req.method === "DELETE") {
+    // @ts-ignore
+    const activityForDelete = //@ts-ignore
+    (await activitiesCollection.doc(String(req.query.id))?.get())?.data();
+    if (
+      !activityForDelete ||
+      (activityForDelete.author !== account.id && !account.isAdmin)
+    )
+      // @ts-ignore
+      return res.status(400).send("Bad request!");
+    // @ts-ignore
+    activitiesCollection.doc(String(req.query.id)).delete();
+  }
 
   // @ts-ignore
   return res.status(201).send("OK");

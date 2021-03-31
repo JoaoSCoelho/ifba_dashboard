@@ -19,7 +19,7 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     rateLimitAccumulator.find(
       (x) =>
         x.ip === req.socket.remoteAddress &&
-        x.times > 5 &&
+        x.times > 30 &&
         Date.now() - x.timestamp < 1000 * 60
     )
   )

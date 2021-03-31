@@ -19,7 +19,7 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     rateLimitAccumulator.find(
       (x) =>
         x.ip === req.socket.remoteAddress &&
-        x.times > 5 &&
+        x.times > 30 &&
         Date.now() - x.timestamp < 1000 * 60
     )
   )
@@ -59,6 +59,7 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
   const page = Number(req.query?.page) || 1; // @ts-ignore
   const order = req.query?.order || "recent"; // @ts-ignore
   const filter = req.query?.filter || "all"; // @ts-ignore
+  const author = req.query?.author || "all"; // @ts-ignore
   const between = JSON.parse(req.query?.between) || null; // @ts-ignore
   const activitiesPerPage = Number(req.query?.activitiesPerPage) || 20;
   const accounts = firestore.collection("accounts");
@@ -90,15 +91,21 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
       );
     else return b.createdTimestamp - a.createdTimestamp;
   });
-  const activitiesDataSortedFiltered = activitiesDataSorted.filter((x) => {
-    if (x.presentationTimestamp < (between?.start || 0)) return false;
-    if (x.presentationTimestamp > (between?.end || 999999999999999))
-      return false;
-    if (filter === "all") return true;
-    if (filter === "pending") return x.presentationTimestamp > Date.now();
-    console.log(x.presentationTimestamp, Date.now());
-    if (filter === "finalized") return x.presentationTimestamp <= Date.now();
-  });
+  const activitiesDataSortedFiltered = activitiesDataSorted
+    .filter((x) => {
+      if (x.presentationTimestamp < (between?.start || 0)) return false;
+      if (x.presentationTimestamp > (between?.end || 999999999999999))
+        return false;
+      if (filter === "all") return true;
+      if (filter === "pending") return x.presentationTimestamp > Date.now();
+      console.log(x.presentationTimestamp, Date.now());
+      if (filter === "finalized") return x.presentationTimestamp <= Date.now();
+    })
+    .filter((x) => {
+      if (author === "all") return true;
+      if (author === "my") return x.author === account.id;
+      if (author === "others") return x.author !== account.id;
+    });
   const activitiesDataPaginated = activitiesDataSortedFiltered.reduce(
     (prev, curr, index) => {
       if (
@@ -119,29 +126,34 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     []
   );
   const matters = firestore.collection("matters");
-  const filteredMatters = await matters
-    .where(
-      "id",
-      "in",
-      activitiesDataPaginated[
-        page >= activitiesDataPaginated.length
-          ? activitiesDataPaginated.length - 1
-          : page
-      ]?.map((x) => x.matter) || [0]
-    )
-    .get();
-  const mattersData = filteredMatters.docs.map((doc) => doc.data());
+  const filteredMatters = await matters.get();
+  const mattersData = filteredMatters.docs
+    .map((doc) => doc.data())
+    .filter((matter) =>
+      (
+        activitiesDataPaginated[
+          page >= activitiesDataPaginated.length
+            ? activitiesDataPaginated.length - 1
+            : page - 1
+        ]?.map((x) => x.matter) || [0]
+      )?.includes(matter.id)
+    );
   const accountsCollection = await firestore.collection("accounts").get();
   const accountsData = accountsCollection.docs.map((doc) => doc.data());
   const formatedActivitiesData = activitiesDataPaginated[
     page >= activitiesDataPaginated.length
       ? activitiesDataPaginated.length - 1
-      : page
+      : page - 1
   ]?.map((activity) => ({
     ...activity,
     matter: mattersData.find((x) => x.id === activity.matter),
-    author: accountsData.find((x) => x.id === activity.author),
+    author: {
+      firstName: accountsData.find((x) => x.id === activity.author)?.firstName,
+      surname: accountsData.find((x) => x.id === activity.author)?.surname,
+      id: accountsData.find((x) => x.id === activity.author)?.id,
+    },
   }));
+
   // @ts-ignore
   return res.status(200).json({
     activities: formatedActivitiesData,
@@ -149,7 +161,7 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
       page >= activitiesDataPaginated.length
         ? activitiesDataPaginated.length - 1
         : page,
-      activitiesDataPaginated.length - 1,
+      activitiesDataPaginated.length,
     ],
   });
 };

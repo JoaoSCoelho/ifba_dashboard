@@ -9,8 +9,9 @@ let rateLimitAccumulator: {
 }[] = [];
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
-  // @ts-ignore
-  if (req.method !== "GET") return res.status(404).send("Not found!");
+  if (req.method !== "GET" && req.method !== "PUT")
+    // @ts-ignore
+    return res.status(404).send("Not found!");
 
   rateLimitAccumulator = rateLimitAccumulator.filter(
     (x) => Date.now() - x.timestamp <= 1000 * 60
@@ -19,7 +20,7 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     rateLimitAccumulator.find(
       (x) =>
         x.ip === req.socket.remoteAddress &&
-        x.times > 5 &&
+        x.times > 30 &&
         Date.now() - x.timestamp < 1000 * 60
     )
   )
@@ -59,11 +60,26 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
   const account = filteredAccounts.data();
   // @ts-ignore
   if (!account) return res.status(400).send("Bad request!");
+  if (req.method === "GET") {
+    account.acessKey = undefined;
+    account.createdAt = undefined;
+    // @ts-ignore
+    return res.status(200).json({
+      account,
+    });
+  } else if (req.method === "PUT") {
+    // @ts-ignore
+    const attKeys = Object.keys(req.body).filter((key) =>
+      ["concludedActivities"].includes(key)
+    );
+    const attObject = attKeys.reduce((prev, curr) => {
+      // @ts-ignore
+      prev = { ...prev, [curr]: req.body[curr] };
+      return prev;
+    }, {});
 
-  account.acessKey = undefined;
-  account.createdAt = undefined;
-  // @ts-ignore
-  return res.status(200).json({
-    account,
-  });
+    accounts.doc(String(decoded.account)).update(attObject);
+    // @ts-ignore
+    return res.status(200).send("OK");
+  }
 };

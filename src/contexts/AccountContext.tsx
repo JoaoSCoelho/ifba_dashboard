@@ -12,6 +12,7 @@ export interface IAccount {
   isAdmin: boolean;
   isTeatcher: boolean;
   matricula: string;
+  concludedActivities: number[];
 }
 
 export interface IAccountContextData {
