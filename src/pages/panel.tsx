@@ -644,7 +644,6 @@ export default function Panel() {
                               matter: Number(e.target.value),
                             })
                           }
-                          value={matters[0]?.id}
                         >
                           {matters?.map((matter, i) => (
                             <option key={matter.id} value={matter.id}>
