@@ -81,7 +81,7 @@ export default function My() {
                 <tr>
                   <th>Professor</th>
                   <td>
-                    {account?.isTeatcher ? (
+                    {account?.isTeacher ? (
                       <div className={styles.yes}>Sim</div>
                     ) : (
                       <div className={styles.no}>Não</div>
