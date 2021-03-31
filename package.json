@@ -8,8 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express-rate-limit": "^5.2.6",
     "firebase": "^8.3.1",
