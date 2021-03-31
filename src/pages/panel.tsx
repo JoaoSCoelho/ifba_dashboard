@@ -736,15 +736,16 @@ export default function Panel() {
                           <div className={styles.datesContainer}>
                             <div className={styles.dates}>
                               <div className={styles.dateStart}>
-                                {moment(activity.showedTimestamp).format(
-                                  "DD/MM/YYYY"
-                                )}
+                                {moment(
+                                  activity.showedTimestamp + 1000 * 60 * 60 * 3
+                                ).format("DD/MM/YYYY")}
                               </div>
                               <span>a</span>
                               <div className={styles.dateEnd}>
-                                {moment(activity.presentationTimestamp).format(
-                                  "DD/MM/YYYY"
-                                )}
+                                {moment(
+                                  activity.presentationTimestamp +
+                                    1000 * 60 * 60 * 3
+                                ).format("DD/MM/YYYY")}
                               </div>
                             </div>
                           </div>
