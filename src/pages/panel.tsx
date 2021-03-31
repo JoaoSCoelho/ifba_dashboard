@@ -345,7 +345,9 @@ export default function Panel() {
                 <p>Atividades pendentes</p>
                 <strong>
                   {activities?.filter(
-                    (activity) => activity.presentationTimestamp > Date.now()
+                    (activity) =>
+                      activity.presentationTimestamp + 1000 * 60 * 60 * 3 >
+                      Date.now()
                   ).length || 0}
                 </strong>
               </div>

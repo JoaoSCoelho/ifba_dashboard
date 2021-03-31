@@ -84,15 +84,13 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
       return (
         b.presentationTimestamp -
         Date.now() -
-        a.presentationTimestamp -
-        Date.now()
+        (a.presentationTimestamp - Date.now())
       );
     if (order === "closest-presentation")
       return (
         a.presentationTimestamp -
         Date.now() -
-        b.presentationTimestamp -
-        Date.now()
+        (b.presentationTimestamp - Date.now())
       );
     else return b.createdTimestamp - a.createdTimestamp;
   });
