@@ -107,9 +107,7 @@ export function Header({ activities }: IHeaderProps) {
               <button>Meus dados</button>
             </li>
           </a>
-          {/* <li>
-              <button>Alterar chave de acesso</button>
-            </li> */}
+
           <li>
             <button onClick={exitSession}>Sair</button>
           </li>
