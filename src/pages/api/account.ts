@@ -78,7 +78,6 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
   if (req.body.isTeacher === undefined)
     // @ts-ignore
     return res.status(400).send("Bad request!"); // @ts-ignore
-  if (!req.body.matricula) return res.status(400).send("Bad request!"); // @ts-ignore
   // @ts-ignore
   if (!account) return res.status(400).send("Bad request!"); // @ts-ignore
   if (!account.isAdmin) return res.status(400).send("Bad request!");
@@ -95,7 +94,6 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     isAdmin: req.body.isAdmin, // @ts-ignore
     isLeader: req.body.isLeader, // @ts-ignore
     isTeacher: req.body.isTeacher, // @ts-ignore
-    matricula: req.body.matricula, // @ts-ignore
     middleName: req.body.middleName, // @ts-ignore
     surname: req.body.surname,
   });

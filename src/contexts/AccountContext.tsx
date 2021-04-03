@@ -18,7 +18,6 @@ export interface IAccount {
   id: number;
   isAdmin: boolean;
   isTeacher: boolean;
-  matricula: string;
   concludedActivities: number[];
   isLeader: boolean;
 }

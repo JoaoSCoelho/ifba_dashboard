@@ -376,7 +376,7 @@ export default function Panel() {
                 <span className={styles.firstName}>{account?.firstName}</span>
                 <span className={styles.surname}>{account?.surname}</span>
               </strong>
-              <p className={styles.matricula}>{account?.matricula}</p>
+              <p className={styles.accountId}>{account?.id}</p>
             </div>
           </label>
 

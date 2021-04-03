@@ -14,7 +14,6 @@ interface INewAccount {
   isAdmin?: boolean;
   isLeader?: boolean;
   isTeacher?: boolean;
-  matricula?: string;
 }
 
 interface INewMatter {
@@ -42,8 +41,7 @@ export default function Admin() {
       !newAccount.surname ||
       newAccount.isAdmin === undefined ||
       newAccount.isLeader === undefined ||
-      newAccount.isTeacher === undefined ||
-      !newAccount.matricula
+      newAccount.isTeacher === undefined
     )
       return alert("Preencha todos os campos");
 
@@ -157,16 +155,6 @@ export default function Admin() {
               className={styles.surname}
               onChange={(e) =>
                 setNewAccount({ ...newAccount, surname: e.target.value })
-              }
-            />
-          </div>
-          <div className={styles.inputContainer}>
-            <strong>Matrícula</strong>
-            <input
-              type="text"
-              className={styles.matricula}
-              onChange={(e) =>
-                setNewAccount({ ...newAccount, matricula: e.target.value })
               }
             />
           </div>
