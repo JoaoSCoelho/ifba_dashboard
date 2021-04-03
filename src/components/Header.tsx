@@ -3,6 +3,7 @@ import { IActivity } from "../pages/panel";
 import { useRouter } from "next/router";
 import { AccountContext } from "../contexts/AccountContext";
 import { useContext } from "react";
+import Link from "next/link";
 
 interface IHeaderProps {
   activities?: IActivity[];
@@ -91,22 +92,28 @@ export function Header({ activities }: IHeaderProps) {
 
         <ul className={styles.options}>
           {account?.isAdmin && (
-            <a href="/admin">
+            <Link href="/admin">
+              <a>
+                <li>
+                  <button>Painel de administrador</button>
+                </li>
+              </a>
+            </Link>
+          )}
+          <Link href="/panel">
+            <a>
               <li>
-                <button>Painel de administrador</button>
+                <button>Painel</button>
               </li>
             </a>
-          )}
-          <a href="/panel">
-            <li>
-              <button>Painel</button>
-            </li>
-          </a>
-          <a href="/my">
-            <li>
-              <button>Meus dados</button>
-            </li>
-          </a>
+          </Link>
+          <Link href="/my">
+            <a>
+              <li>
+                <button>Meus dados</button>
+              </li>
+            </a>
+          </Link>
 
           <li>
             <button onClick={exitSession}>Sair</button>
