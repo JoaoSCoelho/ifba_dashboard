@@ -66,12 +66,7 @@ export default function My() {
                     {account?.id}
                   </td>
                 </tr>
-                <tr>
-                  <th>Matrícula</th>
-                  <td className={`${styles.number} ${styles.matricula}`}>
-                    {account?.matricula}
-                  </td>
-                </tr>
+
                 <tr>
                   <th>Turma</th>
                   <td className={`${styles.number}`}>
