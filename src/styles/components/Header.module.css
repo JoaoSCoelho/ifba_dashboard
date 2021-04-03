@@ -1,0 +1,185 @@
+.pageHeader {
+  height: 5.3rem;
+  font-size: 1.3rem;
+  border-bottom: 1px solid var(--black25);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem;
+  box-shadow: 0 3px 3px var(--black25);
+  color: var(--black80);
+}
+
+.pageHeader .headerCountersContainer {
+  display: flex;
+}
+
+.pageHeader .headerCounters {
+  position: relative;
+  list-style: none;
+}
+
+.pageHeader .headerCounter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+  border-left: 1px solid var(--black25);
+  padding: 0 1rem;
+}
+
+.pageHeader .headerCountersContainer .arrowSvg {
+  transform: rotate(180deg);
+  display: none;
+}
+
+.pageHeader
+  .headerCountersContainer
+  .headerCountersCheckbox:checked
+  ~ label
+  .arrowSvg {
+  transform: rotate(270deg);
+}
+
+.pageHeader .headerCounter p {
+  font-size: 1rem;
+}
+
+.pageHeader .headerCounter strong {
+  font-size: 1.4rem;
+}
+
+.pageHeader .headerProfileOptionsCheckbox,
+.pageHeader .headerCountersCheckbox {
+  position: absolute;
+  opacity: 0;
+}
+
+.pageHeader .headerProfileContainer > label,
+.pageHeader .headerCountersContainer > label {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.pageHeader .headerProfileContainer {
+  position: relative;
+  border-left: 1px solid var(--black25);
+  padding: 0 1rem;
+}
+
+.pageHeader .headerCountersContainer > label {
+  cursor: auto;
+}
+
+@media (max-width: 800px) {
+  .pageHeader {
+    justify-content: space-between;
+  }
+
+  .pageHeader .headerCountersContainer {
+    display: initial;
+  }
+
+  .pageHeader .headerCountersContainer > label {
+    padding-right: 1rem;
+    border-right: 1px solid var(--black25);
+    cursor: pointer;
+  }
+
+  .pageHeader .headerCountersContainer .arrowSvg {
+    display: initial;
+  }
+
+  .pageHeader .headerCounters {
+    position: absolute;
+    border: 2px solid var(--black25);
+    background-color: var(--background);
+    padding: 1rem 0;
+    margin-top: 1rem;
+    z-index: 1;
+    display: none;
+  }
+
+  .pageHeader
+    .headerCountersContainer
+    .headerCountersCheckbox:checked
+    ~ .headerCounters {
+    display: initial;
+  }
+
+  .pageHeader .headerCounter {
+    border: none;
+  }
+}
+
+.pageHeader .arrowSvg {
+  transition: transform 0.2s;
+  width: 20px;
+  height: 20px;
+}
+
+.pageHeader
+  .headerProfileContainer
+  .headerProfileOptionsCheckbox:checked
+  ~ label
+  .arrowSvg {
+  transform: rotate(-90deg);
+}
+
+.pageHeader .headerProfile {
+  gap: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.pageHeader .headerProfile .name {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.pageHeader .headerProfile .accountId {
+  font-size: 1rem;
+}
+
+.pageHeader .headerProfileContainer .options {
+  position: absolute;
+  list-style: none;
+  font-size: 1rem;
+  border: 2px solid var(--black25);
+  background-color: var(--background);
+  border-radius: 5px;
+  display: none;
+  margin-top: 1rem;
+  z-index: 2;
+}
+
+.pageHeader
+  .headerProfileContainer
+  .headerProfileOptionsCheckbox:checked
+  ~ .options {
+  display: initial;
+}
+
+.pageHeader .headerProfileContainer .options li {
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.pageHeader .headerProfileContainer .options li:hover {
+  background-color: var(--black10);
+  box-shadow: 0 3px 3px var(--black50);
+}
+
+.pageHeader .headerProfileContainer .options li * {
+  text-align: left;
+}
+
+.pageHeader .headerProfileContainer .options li > button {
+  width: 100%;
+  height: 100%;
+  padding: 0.6rem 0.6rem;
+}
