@@ -92,22 +92,20 @@ export default function Panel() {
       .catch(() => {});
   }
 
-  function getMatters(e: ChangeEvent<HTMLInputElement>) {
-    if (e.target.checked) {
-      axios
-        .get("/api/matters")
-        .then(({ data: { matters } }) => {
-          setMatters(matters);
-          setNewActivity({
-            ...newActivity,
-            matter: matters?.[0]?.id,
-          });
-        })
-        .catch(() => {});
-    }
+  function getMatters() {
+    axios
+      .get("/api/matters")
+      .then(({ data: { matters } }) => {
+        setMatters(matters);
+        setNewActivity({
+          ...newActivity,
+          matter: matters?.[0]?.id,
+        });
+      })
+      .catch(() => {});
   }
 
-  function createActivity(e: FormEvent<HTMLFormElement>) {
+  function createActivity() {
     if (
       !newActivity.activity ||
       !newActivity.presentationTimestamp ||
@@ -288,8 +286,11 @@ export default function Panel() {
       });
   }
 
-  useEffect(setAccount, []);
-  useEffect(getActivities, []);
+  useEffect(() => {
+    getActivities();
+    setAccount();
+    getMatters();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -480,7 +481,6 @@ export default function Panel() {
                   type="checkbox"
                   name="new-activity-checkbox"
                   id="new-activity-checkbox"
-                  onChange={getMatters}
                   className={styles.newActivityCheckbox}
                 />
                 <div className={styles.labelContainer}>
@@ -502,7 +502,7 @@ export default function Panel() {
                     className={styles.newActivityForm}
                     onSubmit={(e) => {
                       e.preventDefault();
-                      createActivity(e);
+                      createActivity();
                     }}
                   >
                     <div className={styles.inputsContainer}>
@@ -741,9 +741,6 @@ export default function Panel() {
                                         activity.presentationTimestamp,
                                       showedTimestamp: activity.showedTimestamp,
                                     });
-                                    getMatters(({
-                                      target: { checked: true },
-                                    } as unknown) as ChangeEvent<HTMLInputElement>);
                                   }}
                                 >
                                   <svg
