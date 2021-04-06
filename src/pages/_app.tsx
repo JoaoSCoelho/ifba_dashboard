@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
           fontSize: "1.1rem",
         }}
       >
-        v1.1
+        v1.1.1
       </span>
     </AccountProvider>
   );
