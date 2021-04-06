@@ -55,8 +55,8 @@ export function Header({ activities }: IHeaderProps) {
                 <strong>
                   {activities?.filter(
                     (activity) =>
-                      activity.presentationTimestamp + 1000 * 60 * 60 * 3 >
-                      Date.now()
+                      activity.presentationTimestamp >= Date.now() &&
+                      !account.concludedActivities.includes(activity.id)
                   ).length || 0}
                 </strong>
               </div>
