@@ -81,6 +81,13 @@ export default class MyDocument extends Document {
           <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
           <meta name="theme-color" content="#ffffff" />
 
+          <script
+            src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
+            async={true}
+          ></script>
+
+          <script src="./oneSignal.js"></script>
+
           <meta name="author" content="João Victor" />
 
           <meta property="og:determiner" content="the" />

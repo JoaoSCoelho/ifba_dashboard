@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background-color: var(--background-green);
+  background-color: var(--background-auth);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,16 +92,16 @@
   filter: contrast(0.7);
 }
 
-.authHeader .ifLogo {
-  max-height: 5rem;
+.authHeader svg path {
+  fill: #006c9e;
 }
 
 .authHeader .text {
   opacity: 0.8;
 }
 
-.authHeader .ifName {
-  font-size: 1.2rem;
+.authHeader .name {
+  font-size: 1.5rem;
 }
 
 .authForm {

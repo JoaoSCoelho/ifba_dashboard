@@ -1,5 +1,4 @@
 :root {
-  --background-green: #dbe4d8;
   --background: #f5f5f5;
   --light-gray: #c9c9c9;
   --black10: #0000001a;
@@ -12,6 +11,7 @@
   --alive-green: #00c721;
   --if-green: #71c837;
   --background-green: #4dff7c;
+  --background-auth: #abe4ff;
   --background-green50: #4dff7c80;
   --background-green25: #4dff7c40;
   --background-green-light: #90ffad;

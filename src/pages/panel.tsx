@@ -44,22 +44,34 @@ export interface IMatter {
 
 export default function Panel() {
   let { account, setAccount, setLocalAccount } = useContext(AccountContext);
+  const localStorage = global.localStorage || undefined;
   const [orderBy, setOrderBy] = useState<
     "recent" | "older" | "farthest-presentation" | "closest-presentation"
-  >("recent");
+  >(
+    JSON.parse(localStorage?.getItem("activities-filter") || "null")?.orderBy ||
+      "recent"
+  );
   const [situation, setSituation] = useState<"all" | "pendind" | "finalized">(
-    "all"
+    JSON.parse(localStorage?.getItem("activities-filter") || "null")
+      ?.situation || "all"
   );
   const [between, setBetween] = useState<{ start?: number; end?: number }>({});
-  const [perPage, setPerPage] = useState<20 | 40 | 100>(20);
+  const [perPage, setPerPage] = useState<20 | 40 | 100>(
+    JSON.parse(localStorage?.getItem("activities-filter") || "null")?.perPage ||
+      20
+  );
   const [activities, setActivities] = useState<IActivity[]>([]);
   const [matters, setMatters] = useState<IMatter[]>([]);
   let [page, setPage] = useState(1);
   const [pages, setPages] = useState(0);
   const [filterAuthor, setFilterAuthor] = useState<"all" | "my" | "others">(
-    "all"
+    JSON.parse(localStorage?.getItem("activities-filter") || "null")
+      ?.filterAuthor || "all"
   );
-  const [state, setState] = useState<"all" | "concluded" | "unconcluded">();
+  const [state, setState] = useState<"all" | "concluded" | "unconcluded">(
+    JSON.parse(localStorage?.getItem("activities-filter") || "null")?.state ||
+      "all"
+  );
   const [newActivity, setNewActivity] = useState<INewActivity>({
     author: account?.id,
     class: account?.class,
@@ -251,6 +263,19 @@ export default function Panel() {
     getMatters();
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem(
+      "activities-filter",
+      JSON.stringify({
+        orderBy,
+        situation,
+        perPage,
+        filterAuthor,
+        state,
+      })
+    );
+  }, [orderBy, situation, perPage, filterAuthor, state]);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -273,6 +298,7 @@ export default function Panel() {
             setNewActivity={setNewActivity}
             between={between}
             matters={matters}
+            localStorage={localStorage}
           />
           <div className={styles.activitiesCards}>
             {!activities ? (

@@ -2,7 +2,7 @@ import axios from "axios";
 import styles from "../styles/components/ActivitiesHeader.module.css";
 import { INewActivity, IMatter } from "../pages/panel";
 import { AccountContext } from "../contexts/AccountContext";
-import { Dispatch, SetStateAction, useContext } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect } from "react";
 
 interface IActivitiesHeaderProps {
   getActivities: () => void;
@@ -20,6 +20,7 @@ interface IActivitiesHeaderProps {
   setNewActivity: Dispatch<SetStateAction<INewActivity>>;
   between: { start?: number; end?: number };
   matters: IMatter[];
+  localStorage: Storage;
 }
 
 export function ActivitiesHeader({
@@ -34,6 +35,7 @@ export function ActivitiesHeader({
   setNewActivity,
   between,
   matters,
+  localStorage,
 }: IActivitiesHeaderProps) {
   const { account } = useContext(AccountContext);
 
@@ -78,6 +80,38 @@ export function ActivitiesHeader({
         document.getElementById("new-activity-checkbox").click();
       });
   }
+
+  useEffect(() => {
+    try {
+      (document.getElementById(
+        "activities-order-selector"
+      ) as HTMLSelectElement).value = JSON.parse(
+        localStorage?.getItem("activities-filter") || "null"
+      )?.orderBy;
+      (document.getElementById(
+        "activities-situation-selector"
+      ) as HTMLSelectElement).value = JSON.parse(
+        localStorage?.getItem("activities-filter") || "null"
+      )?.situation;
+      (document.getElementById(
+        "activities-state-selector"
+      ) as HTMLSelectElement).value = JSON.parse(
+        localStorage?.getItem("activities-filter") || "null"
+      )?.state;
+      (document.getElementById(
+        "activities-per-page-selector"
+      ) as HTMLSelectElement).value = JSON.parse(
+        localStorage?.getItem("activities-filter") || "null"
+      )?.perPage;
+      (document.getElementById(
+        "activities-filter-author-selector"
+      ) as HTMLSelectElement).value = JSON.parse(
+        localStorage?.getItem("activities-filter") || "null"
+      )?.filterAuthor;
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   return (
     <header className={styles.activitiesHeader}>
@@ -134,6 +168,7 @@ export function ActivitiesHeader({
             <ul className={styles.filterBar}>
               <li>
                 <strong>Ordenar por</strong>
+
                 <select
                   name="order-by"
                   id="activities-order-selector" // @ts-ignore
@@ -213,6 +248,7 @@ export function ActivitiesHeader({
                   onChange={(e) => setPerPage(Number(e.target.value))}
                 >
                   <option value="20">20</option>
+
                   <option value="40">40</option>
                   <option value="100">100</option>
                 </select>
