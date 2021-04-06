@@ -100,10 +100,17 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
       if (x.presentationTimestamp > (between?.end || 999999999999999))
         return false;
       if (situation === "all") return true;
-      if (situation === "pending") return x.presentationTimestamp > Date.now();
-      console.log(x.presentationTimestamp, Date.now());
+      if (situation === "pending")
+        return (
+          x.presentationTimestamp > Date.now() &&
+          !account.concludedActivities.includes(x.id)
+        );
+
       if (situation === "finalized")
-        return x.presentationTimestamp <= Date.now();
+        return (
+          x.presentationTimestamp <= Date.now() ||
+          account.concludedActivities.includes(x.id)
+        );
     })
     .filter((x) => {
       if (author === "all") return true;

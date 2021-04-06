@@ -313,7 +313,8 @@ export default function Panel() {
                     <div
                       id={`activity-${activity.id}`}
                       className={`${styles.activityCard} ${
-                        Date.now() >= activity.presentationTimestamp
+                        Date.now() >= activity.presentationTimestamp ||
+                        account.concludedActivities.includes(activity.id)
                           ? styles.finalized
                           : styles.pending
                       } ${
@@ -368,7 +369,8 @@ export default function Panel() {
                         <li>
                           <strong>Situação</strong>
                           <p>
-                            {Date.now() >= activity.presentationTimestamp
+                            {Date.now() >= activity.presentationTimestamp ||
+                            account.concludedActivities.includes(activity.id)
                               ? "Finalizado"
                               : "Pendente"}
                           </p>
