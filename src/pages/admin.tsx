@@ -5,6 +5,7 @@ import styles from "../styles/pages/Admin.module.css";
 import { useRouter } from "next/router";
 import { AccountContext } from "../contexts/AccountContext";
 import moment from "moment";
+import Link from "next/link";
 
 interface INewAccount {
   class?: string;
@@ -112,127 +113,133 @@ export default function Admin() {
         <title>Administrador</title>
       </Head>
       <main className={styles.mainContainer}>
-        <a href="/panel" className={styles.backToPanel}>
-          &larr; Painel
-        </a>
-        <form className={styles.accountCreationForm} onSubmit={createAccount}>
-          <h2>Criação de conta</h2>
-          <div className={styles.inputContainer}>
-            <strong>Turma</strong>
-            <input
-              type="text"
-              className={styles.class}
-              onChange={(e) =>
-                setNewAccount({ ...newAccount, class: e.target.value })
-              }
-            />
-          </div>
-          <div className={styles.inputContainer}>
-            <strong>Primeiro nome</strong>
-            <input
-              type="text"
-              id="teste"
-              className={styles.firstName}
-              onChange={(e) =>
-                setNewAccount({ ...newAccount, firstName: e.target.value })
-              }
-            />
-          </div>
-          <div className={styles.inputContainer}>
-            <strong>Nome do meio</strong>
-            <input
-              type="text"
-              className={styles.middleName}
-              onChange={(e) =>
-                setNewAccount({ ...newAccount, middleName: e.target.value })
-              }
-            />
-          </div>
-          <div className={styles.inputContainer}>
-            <strong>Ultimo nome</strong>
-            <input
-              type="text"
-              className={styles.surname}
-              onChange={(e) =>
-                setNewAccount({ ...newAccount, surname: e.target.value })
-              }
-            />
-          </div>
-
-          <div className={styles.inputContainer}>
-            <strong>Administrador</strong>
-            <select
-              name=""
-              id=""
-              onChange={(e) =>
-                setNewAccount({
-                  ...newAccount,
-                  isAdmin: JSON.parse(e.target.value),
-                })
-              }
-            >
-              <option value="true">Sim</option>
-              <option value="false">Não</option>
-            </select>
-          </div>
-          <div className={styles.inputContainer}>
-            <strong>Líder</strong>
-            <select
-              name=""
-              id=""
-              onChange={(e) =>
-                setNewAccount({
-                  ...newAccount,
-                  isLeader: JSON.parse(e.target.value),
-                })
-              }
-            >
-              <option value="true">Sim</option>
-              <option value="false">Não</option>
-            </select>
-          </div>
-          <div className={styles.inputContainer}>
-            <strong>Professor</strong>
-            <select
-              name=""
-              id=""
-              onChange={(e) =>
-                setNewAccount({
-                  ...newAccount,
-                  isTeacher: JSON.parse(e.target.value),
-                })
-              }
-            >
-              <option value="true">Sim</option>
-              <option value="false">Não</option>
-            </select>
-          </div>
-          <button type="submit">Criar</button>
-        </form>
-        <form className={styles.matterCreationForm} onSubmit={createMatter}>
-          <h2>Criação de matéria</h2>
-          <div className={styles.inputContainer}>
-            <strong>Nome</strong>
-            <input
-              type="text"
-              onChange={(e) =>
-                setNewMatter({ ...newMatter, name: e.target.value })
-              }
-            />
-          </div>
-          <div className={styles.inputContainer}>
-            <strong>Cor</strong>
-            <input
-              type="color"
-              onChange={(e) => {
-                const arrLetters = e.target.value.split("");
-                arrLetters.shift();
-                setNewMatter({ ...newMatter, hexColor: arrLetters.join("") });
-              }}
-            />
-          </div>
-          <button type="submit">Criar</button>
-        </form>
+        <Link href="/panel">
+          <a className={styles.backToPanel}>&larr; Painel</a>
+        </Link>
+        <div className={styles.formsContainer}>
+          <form className={styles.accountCreationForm} onSubmit={createAccount}>
+            <h2>Criação de conta</h2>
+            <div className={styles.inputContainer}>
+              {/* <strong>Turma</strong> */}
+              <input
+                type="text"
+                className={styles.class}
+                placeholder="Turma"
+                onChange={(e) =>
+                  setNewAccount({ ...newAccount, class: e.target.value })
+                }
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              {/* <strong>Primeiro nome</strong> */}
+              <input
+                type="text"
+                id="teste"
+                placeholder="Primeiro nome"
+                className={styles.firstName}
+                onChange={(e) =>
+                  setNewAccount({ ...newAccount, firstName: e.target.value })
+                }
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              {/* <strong>Nome do meio</strong> */}
+              <input
+                type="text"
+                className={styles.middleName}
+                placeholder="Nome do meio"
+                onChange={(e) =>
+                  setNewAccount({ ...newAccount, middleName: e.target.value })
+                }
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              {/* <strong>Ultimo nome</strong> */}
+              <input
+                type="text"
+                className={styles.surname}
+                placeholder="Ultimo nome"
+                onChange={(e) =>
+                  setNewAccount({ ...newAccount, surname: e.target.value })
+                }
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <strong>Administrador</strong>
+              <select
+                name=""
+                id=""
+                onChange={(e) =>
+                  setNewAccount({
+                    ...newAccount,
+                    isAdmin: JSON.parse(e.target.value),
+                  })
+                }
+              >
+                <option value="true">Sim</option>
+                <option value="false">Não</option>
+              </select>
+            </div>
+            <div className={styles.inputContainer}>
+              <strong>Líder</strong>
+              <select
+                name=""
+                id=""
+                onChange={(e) =>
+                  setNewAccount({
+                    ...newAccount,
+                    isLeader: JSON.parse(e.target.value),
+                  })
+                }
+              >
+                <option value="true">Sim</option>
+                <option value="false">Não</option>
+              </select>
+            </div>
+            <div className={styles.inputContainer}>
+              <strong>Professor</strong>
+              <select
+                name=""
+                id=""
+                onChange={(e) =>
+                  setNewAccount({
+                    ...newAccount,
+                    isTeacher: JSON.parse(e.target.value),
+                  })
+                }
+              >
+                <option value="true">Sim</option>
+                <option value="false">Não</option>
+              </select>
+            </div>
+            <button type="submit">Criar</button>
+          </form>
+          <form className={styles.matterCreationForm} onSubmit={createMatter}>
+            <h2>Criação de matéria</h2>
+            <div className={styles.inputContainer}>
+              {/* <strong>Nome</strong> */}
+              <input
+                type="text"
+                placeholder="Nome"
+                onChange={(e) =>
+                  setNewMatter({ ...newMatter, name: e.target.value })
+                }
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <strong>Cor</strong>
+              <input
+                type="color"
+                onChange={(e) => {
+                  const arrLetters = e.target.value.split("");
+                  arrLetters.shift();
+                  setNewMatter({ ...newMatter, hexColor: arrLetters.join("") });
+                }}
+              />
+            </div>
+            <button type="submit">Criar</button>
+          </form>
+        </div>
       </main>
     </div>
   );

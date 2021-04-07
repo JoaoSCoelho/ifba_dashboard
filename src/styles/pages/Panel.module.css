@@ -3,196 +3,6 @@
   padding-bottom: 2rem;
 }
 
-.pageHeader {
-  height: 5.3rem;
-  font-size: 1.3rem;
-  border-bottom: 1px solid var(--black25);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 1rem;
-  box-shadow: 0 3px 3px var(--black25);
-  color: var(--black80);
-}
-
-.pageHeader .headerCountersContainer {
-  display: flex;
-}
-
-.pageHeader .headerCounters {
-  position: relative;
-  list-style: none;
-}
-
-.pageHeader .headerCounter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: column;
-  height: 100%;
-  border-left: 1px solid var(--black25);
-  padding: 0 1rem;
-}
-
-.pageHeader .headerCountersContainer .arrowSvg {
-  transform: rotate(180deg);
-  display: none;
-}
-
-.pageHeader
-  .headerCountersContainer
-  .headerCountersCheckbox:checked
-  ~ label
-  .arrowSvg {
-  transform: rotate(270deg);
-}
-
-.pageHeader .headerCounter p {
-  font-size: 1rem;
-}
-
-.pageHeader .headerCounter strong {
-  font-size: 1.4rem;
-}
-
-.pageHeader .headerProfileContainer {
-  position: relative;
-  border-left: 1px solid var(--black25);
-  padding: 0 1rem;
-}
-
-.pageHeader .headerProfileOptionsCheckbox,
-.pageHeader .headerCountersCheckbox,
-.mainBody .activities .activitiesFilterCheckbox,
-.mainBody .activities .newActivityCheckbox {
-  position: absolute;
-  opacity: 0;
-}
-
-.pageHeader .headerProfileContainer > label,
-.pageHeader .headerCountersContainer > label,
-.mainBody .activities .filterBarContainer > .labelContainer label,
-.mainBody .activities .newActivityContainer .labelContainer > label {
-  display: flex;
-  cursor: pointer;
-  align-items: center;
-  gap: 0.7rem;
-}
-
-.pageHeader .headerCountersContainer > label {
-  cursor: auto;
-}
-
-@media (max-width: 800px) {
-  .pageHeader {
-    justify-content: space-between;
-  }
-
-  .pageHeader .headerCountersContainer {
-    display: initial;
-  }
-
-  .pageHeader .headerCountersContainer > label {
-    padding-right: 1rem;
-    border-right: 1px solid var(--black25);
-    cursor: pointer;
-  }
-
-  .pageHeader .headerCountersContainer .arrowSvg {
-    display: initial;
-  }
-
-  .pageHeader .headerCounters {
-    position: absolute;
-    border: 2px solid var(--black25);
-    background-color: var(--background);
-    padding: 1rem 0;
-    margin-top: 1rem;
-    z-index: 1;
-    display: none;
-  }
-
-  .pageHeader
-    .headerCountersContainer
-    .headerCountersCheckbox:checked
-    ~ .headerCounters {
-    display: initial;
-  }
-
-  .pageHeader .headerCounter {
-    border: none;
-  }
-}
-
-.pageHeader .arrowSvg {
-  transition: transform 0.2s;
-  width: 20px;
-  height: 20px;
-}
-
-.pageHeader
-  .headerProfileContainer
-  .headerProfileOptionsCheckbox:checked
-  ~ label
-  .arrowSvg {
-  transform: rotate(-90deg);
-}
-
-.pageHeader .headerProfile {
-  gap: 0.2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.pageHeader .headerProfile .name {
-  display: flex;
-  gap: 0.3rem;
-}
-
-.pageHeader .headerProfile .accountId {
-  font-size: 1rem;
-}
-
-.pageHeader .headerProfileContainer .options {
-  position: absolute;
-  list-style: none;
-  font-size: 1rem;
-  border: 2px solid var(--black25);
-  background-color: var(--background);
-  border-radius: 5px;
-  display: none;
-  margin-top: 1rem;
-  z-index: 2;
-}
-
-.pageHeader
-  .headerProfileContainer
-  .headerProfileOptionsCheckbox:checked
-  ~ .options {
-  display: initial;
-}
-
-.pageHeader .headerProfileContainer .options li {
-  font-weight: bold;
-  transition: all 0.2s;
-}
-
-.pageHeader .headerProfileContainer .options li:hover {
-  background-color: var(--black10);
-  box-shadow: 0 3px 3px var(--black50);
-}
-
-.pageHeader .headerProfileContainer .options li * {
-  text-align: left;
-}
-
-.pageHeader .headerProfileContainer .options li > button {
-  width: 100%;
-  height: 100%;
-  padding: 0.6rem 0.6rem;
-}
-
 .mainBody {
   margin-top: 3rem;
   padding: 0 2rem;
@@ -206,482 +16,6 @@
   .mainBody .activities {
     width: 100%;
   }
-}
-
-.mainBody .activities header {
-  display: flex;
-  border-bottom: 1px solid var(--black25);
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  padding: 0 1rem;
-}
-
-.mainBody .activities header h2 {
-  font-size: 2rem;
-  opacity: 0.9;
-}
-
-.mainBody .activities .filterBarContainer > .labelContainer,
-.mainBody .activities .newActivityContainer > .labelContainer,
-.mainBody .activities .filterBar .buttonsContainer > button,
-.mainBody .activities .newActivityForm .buttonsContainer > button,
-.mainBody .activities .activityEditionContainer .buttonsContainer > button {
-  overflow: hidden;
-  transition: color 0.2s;
-  width: fit-content;
-  position: relative;
-  color: var(--alive-blue);
-  margin-bottom: 0.3rem;
-}
-.mainBody .activities .filterBarContainer > .labelContainer label,
-.mainBody .activities .newActivityContainer > .labelContainer label,
-.mainBody .activities .filterBar .buttonsContainer > button,
-.mainBody .activities .newActivityForm .buttonsContainer > button,
-.mainBody .activities .activityEditionContainer .buttonsContainer > button {
-  padding: 0.4rem 0.8rem;
-
-  filter: grayscale(0.5);
-  position: relative;
-  z-index: 1;
-}
-
-.mainBody .activities .filterBarContainer > .labelContainer:hover,
-.mainBody .activities .newActivityContainer > .labelContainer:hover,
-.mainBody .activities .filterBar .buttonsContainer > button:hover,
-.mainBody .activities .newActivityForm .buttonsContainer > button:hover,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .buttonsContainer
-  > button:hover {
-  border-radius: 5px;
-  color: white;
-}
-
-.mainBody .activities .filterBarContainer > .labelContainer::after,
-.mainBody .activities .filterBar .buttonsContainer > button::after,
-.mainBody .activities .newActivityForm .buttonsContainer > button::after,
-.mainBody .activities .newActivityContainer > .labelContainer::after,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .buttonsContainer
-  > button::after {
-  height: 10%;
-  width: 100%;
-  content: "";
-  transition: height 0.2s;
-  display: block;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  filter: grayscale(0.5);
-  background-color: var(--alive-blue);
-}
-
-.mainBody .activities .filterBarContainer > .labelContainer:hover::after,
-.mainBody .activities .filterBar .buttonsContainer > button:hover::after,
-.mainBody .activities .newActivityForm .buttonsContainer > button:hover::after,
-.mainBody .activities .newActivityContainer > .labelContainer:hover::after,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .buttonsContainer
-  > button:hover::after {
-  height: 100%;
-}
-
-.mainBody .activities .filterBarContainer > .labelContainer label > svg path,
-.mainBody
-  .activities
-  .newActivityContainer
-  > .labelContainer
-  label
-  > svg
-  polygon {
-  transition: fill 0.2s;
-  fill: var(--alive-blue);
-}
-
-.mainBody
-  .activities
-  .filterBarContainer
-  > .labelContainer:hover
-  label
-  > svg
-  path {
-  fill: white;
-}
-
-.mainBody .activities .filterBarContainer > .labelContainer label > p,
-.mainBody .activities .filterBar .buttonsContainer > button,
-.mainBody .activities .newActivityForm .buttonsContainer > button,
-.mainBody .activities .activityEditionContainer .buttonsContainer > button {
-  font-weight: 700;
-}
-
-.mainBody .activities .filterBarListContainer,
-.mainBody .activities .newActivityFormContainer,
-.mainBody .activities .activityEditionContainer {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  z-index: 2;
-  background-color: var(--black50);
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-
-.mainBody
-  .activities
-  .activitiesFilterCheckbox:checked
-  ~ .filterBarListContainer,
-.mainBody .activities .newActivityCheckbox:checked ~ .newActivityFormContainer {
-  display: flex;
-}
-
-.mainBody .activities .filterBarListContainer > label,
-.mainBody .activities .newActivityFormContainer > label {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-
-.mainBody .activities .filterBar,
-.mainBody .activities .newActivityContainer .newActivityForm,
-.mainBody .activities .activityEditionForm {
-  list-style: none;
-  margin-bottom: 0.5rem;
-  padding: 1.5rem;
-  gap: 1rem;
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 5px;
-  z-index: 3;
-  max-width: 90%;
-  box-shadow: 0 0 15px var(--black50);
-  overflow-y: auto;
-  max-height: 95vh;
-}
-
-.mainBody .activities .filterBar > li {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  padding: 1rem 0;
-  align-items: center;
-  border-bottom: 1px solid var(--black25);
-}
-
-.mainBody .activities .filterBar > li > select,
-.mainBody .activities .filterBar > li input[type="date"],
-.mainBody .activities .newActivityForm .inputsContainer select,
-.mainBody .activities .newActivityForm .inputsContainer input[type="date"],
-.mainBody .activities .activityEditionContainer .inputsContainer select,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .inputsContainer
-  input[type="date"] {
-  cursor: pointer;
-  font: inherit;
-  width: min-content;
-  background-color: white;
-  border: none;
-  border-bottom: 2px solid var(--black25);
-  padding: 0.2rem;
-}
-
-.mainBody .activities .filterBar > li > select:hover,
-.mainBody .activities .filterBar > li input[type="date"]:hover,
-.mainBody .activities .newActivityForm .inputsContainer select:hover,
-.mainBody
-  .activities
-  .newActivityForm
-  .inputsContainer
-  input[type="date"]:hover,
-.mainBody .activities .activityEditionContainer .inputsContainer select:hover,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .inputsContainer
-  input[type="date"]:hover {
-  background-color: var(--black10);
-  border-radius: 5px;
-}
-
-.mainBody .activities .filterBar > li input[type="date"],
-.mainBody .activities .newActivityForm .inputsContainer input[type="date"],
-.mainBody
-  .activities
-  .activityEditionContainer
-  .inputsContainer
-  input[type="date"] {
-  width: 8rem;
-  position: relative;
-}
-
-.mainBody
-  .activities
-  .filterBar
-  > li
-  input[type="date"]::-webkit-calendar-picker-indicator,
-.mainBody
-  .activities
-  .newActivityForm
-  .inputsContainer
-  input[type="date"]::-webkit-calendar-picker-indicator,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .inputsContainer
-  input[type="date"]::-webkit-calendar-picker-indicator {
-  position: absolute;
-  right: 0;
-}
-
-.mainBody .activities .filterBar .presentationBetween .dateInputs {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  align-items: flex-end;
-}
-
-.mainBody .activities .filterBar .buttonsContainer,
-.mainBody .activities .newActivityForm .buttonsContainer,
-.mainBody .activities .activityEditionContainer .buttonsContainer {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  margin-top: 1rem;
-}
-
-.mainBody .activities .filterBar .buttonsContainer > button,
-.mainBody .activities .newActivityForm .buttonsContainer > button,
-.mainBody .activities .activityEditionContainer .buttonsContainer > button {
-  margin-bottom: 0;
-}
-
-.mainBody .activities .filterBar .buttonsContainer > .cancel,
-.mainBody .activities .newActivityForm .buttonsContainer > .cancel,
-.mainBody .activities .activityEditionContainer .buttonsContainer > .cancel {
-  color: var(--if-red);
-  padding: 0;
-}
-
-.mainBody .activities .filterBar .buttonsContainer > .cancel::after,
-.mainBody .activities .newActivityForm .buttonsContainer > .cancel::after,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .buttonsContainer
-  > .cancel::after {
-  background-color: var(--if-red);
-}
-
-.mainBody .activities .filterBar .buttonsContainer > button > *,
-.mainBody .activities .newActivityForm .buttonsContainer > button > *,
-.mainBody .activities .activityEditionContainer .buttonsContainer > button > * {
-  z-index: 2;
-  position: relative;
-}
-
-.mainBody .activities .filterBar .buttonsContainer > button label,
-.mainBody .activities .newActivityForm .buttonsContainer > button label {
-  cursor: inherit;
-  width: 100%;
-  height: 100%;
-  padding: 0.4rem 0.8rem;
-}
-
-.mainBody .activities .newActivityContainer > .labelContainer {
-  color: var(--alive-green);
-}
-
-.mainBody .activities .newActivityContainer > .labelContainer::after {
-  background-color: var(--alive-green);
-}
-
-.mainBody
-  .activities
-  .newActivityContainer
-  > .labelContainer:hover
-  > label
-  > svg
-  polygon {
-  fill: white;
-}
-
-.mainBody .activities .newActivityContainer .labelContainer > label {
-  font-weight: 700;
-}
-
-.mainBody .activities .newActivityContainer .labelContainer > label svg {
-  height: 15px;
-  width: 15px;
-}
-
-.mainBody
-  .activities
-  .newActivityContainer
-  > .labelContainer
-  label
-  > svg
-  polygon {
-  fill: var(--alive-green);
-}
-
-.mainBody .activities .newActivityForm .inputsContainer,
-.mainBody .activities .activityEditionContainer .inputsContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.mainBody .activities .newActivityForm .inputsContainer > div,
-.mainBody .activities .activityEditionContainer .inputsContainer > div {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.mainBody .activities .newActivityForm .inputsContainer .inputActivityContainer,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .inputsContainer
-  .inputActivityContainer {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  position: relative;
-  height: 5rem;
-  width: 100%;
-  gap: 0;
-  margin-bottom: 1.2rem;
-}
-
-.mainBody .activities .newActivityForm .inputActivityContainer textarea,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .inputsContainer
-  .inputActivityContainer
-  textarea {
-  border: 2px solid var(--black25);
-  border-radius: 5px;
-  height: 100%;
-  resize: none;
-  width: 100%;
-  padding: 0.5rem;
-}
-
-.mainBody
-  .activities
-  .newActivityForm
-  .inputActivityContainer
-  .inputActivityPlaceholder,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .inputsContainer
-  .inputActivityContainer
-  .inputActivityPlaceholder {
-  position: absolute;
-  left: 0.5rem;
-  font-size: 0.9rem;
-  z-index: 0;
-  transition: all 0.2s;
-  background: white;
-  color: var(--black80);
-}
-
-.mainBody
-  .activities
-  .newActivityForm
-  .inputActivityContainer
-  textarea:focus
-  ~ .inputActivityPlaceholder,
-.mainBody
-  .activities
-  .newActivityForm
-  .inputActivityContainer
-  textarea.inputed
-  ~ .inputActivityPlaceholder,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .inputsContainer
-  .inputActivityContainer
-  textarea:focus
-  ~ .inputActivityPlaceholder,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .inputsContainer
-  .inputActivityContainer
-  textarea.inputed
-  ~ .inputActivityPlaceholder {
-  font-size: 0.8rem;
-  transform: translateY(-2.5rem);
-  padding: 0 0.2rem;
-}
-
-.mainBody
-  .activities
-  .newActivityForm
-  .inputActivityContainer
-  .inputActivityObservation,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .inputsContainer
-  .inputActivityContainer
-  .inputActivityObservation {
-  font-size: 0.8rem;
-}
-
-.mainBody
-  .activities
-  .newActivityForm
-  .inputActivityContainer
-  .inputActivityObservation::before,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .inputsContainer
-  .inputActivityContainer
-  .inputActivityObservation::before {
-  content: "*";
-  color: var(--black50);
-  font-size: 1rem;
-}
-
-.mainBody .activities .newActivityForm .buttonsContainer,
-.mainBody .activities .activityEditionForm .buttonsContainer {
-  margin: 0;
-}
-
-.mainBody .activities .newActivityForm .buttonsContainer > button,
-.mainBody .activities .activityEditionContainer .buttonsContainer > button {
-  color: var(--alive-green);
-}
-
-.mainBody .activities .newActivityForm .buttonsContainer > button::after,
-.mainBody
-  .activities
-  .activityEditionContainer
-  .buttonsContainer
-  > button::after {
-  background-color: var(--alive-green);
 }
 
 .mainBody .activitiesCards {
@@ -818,6 +152,275 @@
   font-size: 2rem;
   font-family: monospace;
   text-align: center;
+}
+
+.mainBody .activities .activityEditionContainer .buttonsContainer > button {
+  overflow: hidden;
+  transition: color 0.2s;
+  width: fit-content;
+  position: relative;
+  color: var(--alive-blue);
+  margin-bottom: 0.3rem;
+}
+
+.mainBody .activities .activityEditionContainer .buttonsContainer > button {
+  padding: 0.4rem 0.8rem;
+
+  filter: grayscale(0.5);
+  position: relative;
+  z-index: 1;
+}
+
+.mainBody
+  .activities
+  .activityEditionContainer
+  .buttonsContainer
+  > button:hover {
+  border-radius: 5px;
+  color: white;
+}
+
+.mainBody
+  .activities
+  .activityEditionContainer
+  .buttonsContainer
+  > button::after {
+  height: 10%;
+  width: 100%;
+  content: "";
+  transition: height 0.2s;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  filter: grayscale(0.5);
+  background-color: var(--alive-blue);
+}
+
+.mainBody
+  .activities
+  .activityEditionContainer
+  .buttonsContainer
+  > button:hover::after {
+  height: 100%;
+}
+
+.mainBody .activities .activityEditionContainer .buttonsContainer > button {
+  font-weight: 700;
+}
+
+.mainBody .activities .activityEditionContainer {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 2;
+  background-color: var(--black50);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainBody .activities .activityEditionForm {
+  list-style: none;
+  margin-bottom: 0.5rem;
+  padding: 1.5rem;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 5px;
+  z-index: 3;
+  max-width: 90%;
+  box-shadow: 0 0 15px var(--black50);
+  overflow-y: auto;
+  max-height: 95vh;
+}
+
+.mainBody .activities .activityEditionContainer .inputsContainer select,
+.mainBody
+  .activities
+  .activityEditionContainer
+  .inputsContainer
+  input[type="date"] {
+  cursor: pointer;
+  font: inherit;
+  width: min-content;
+  background-color: white;
+  border: none;
+  border-bottom: 2px solid var(--black25);
+  padding: 0.2rem;
+}
+
+.inputsContainer input[type="date"]:hover,
+.mainBody .activities .activityEditionContainer .inputsContainer select:hover,
+.mainBody
+  .activities
+  .activityEditionContainer
+  .inputsContainer
+  input[type="date"]:hover {
+  background-color: var(--black10);
+  border-radius: 5px;
+}
+
+.mainBody
+  .activities
+  .activityEditionContainer
+  .inputsContainer
+  input[type="date"] {
+  width: 8rem;
+  position: relative;
+}
+
+.mainBody
+  .activities
+  .activityEditionContainer
+  .inputsContainer
+  input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 0;
+}
+
+.mainBody .activities .activityEditionContainer .buttonsContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.mainBody .activities .activityEditionContainer .buttonsContainer > button {
+  margin-bottom: 0;
+}
+
+.mainBody .activities .activityEditionContainer .buttonsContainer > .cancel {
+  color: var(--if-red);
+  padding: 0;
+}
+
+.mainBody
+  .activities
+  .activityEditionContainer
+  .buttonsContainer
+  > .cancel::after {
+  background-color: var(--if-red);
+}
+
+.mainBody .activities .activityEditionContainer .buttonsContainer > button > * {
+  z-index: 2;
+  position: relative;
+}
+
+.mainBody .activities .activityEditionContainer .inputsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mainBody .activities .activityEditionContainer .inputsContainer > div {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.mainBody
+  .activities
+  .activityEditionContainer
+  .inputsContainer
+  .inputActivityContainer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  height: 5rem;
+  width: 100%;
+  gap: 0;
+  margin-bottom: 1.2rem;
+}
+
+.mainBody
+  .activities
+  .activityEditionContainer
+  .inputsContainer
+  .inputActivityContainer
+  textarea {
+  border: 2px solid var(--black25);
+  border-radius: 5px;
+  height: 100%;
+  resize: none;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.mainBody
+  .activities
+  .activityEditionContainer
+  .inputsContainer
+  .inputActivityContainer
+  .inputActivityPlaceholder {
+  position: absolute;
+  left: 0.5rem;
+  font-size: 0.9rem;
+  z-index: 0;
+  transition: all 0.2s;
+  background: white;
+  color: var(--black80);
+}
+
+.mainBody
+  .activities
+  .activityEditionContainer
+  .inputsContainer
+  .inputActivityContainer
+  textarea:focus
+  ~ .inputActivityPlaceholder,
+.mainBody
+  .activities
+  .activityEditionContainer
+  .inputsContainer
+  .inputActivityContainer
+  textarea.inputed
+  ~ .inputActivityPlaceholder {
+  font-size: 0.8rem;
+  transform: translateY(-2.5rem);
+  padding: 0 0.2rem;
+}
+
+.mainBody
+  .activities
+  .activityEditionContainer
+  .inputsContainer
+  .inputActivityContainer
+  .inputActivityObservation {
+  font-size: 0.8rem;
+}
+
+.mainBody
+  .activities
+  .activityEditionContainer
+  .inputsContainer
+  .inputActivityContainer
+  .inputActivityObservation::before {
+  content: "*";
+  color: var(--black50);
+  font-size: 1rem;
+}
+
+.mainBody .activities .activityEditionForm .buttonsContainer {
+  margin: 0;
+}
+
+.mainBody .activities .activityEditionContainer .buttonsContainer > button {
+  color: var(--alive-green);
+}
+
+.mainBody
+  .activities
+  .activityEditionContainer
+  .buttonsContainer
+  > button::after {
+  background-color: var(--alive-green);
 }
 
 .mainBody .activities .activityEditionContainer .buttonsContainer > .cancel {

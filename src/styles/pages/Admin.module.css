@@ -1,0 +1,72 @@
+.mainContainer {
+  padding: 2rem;
+}
+
+.mainContainer .backToPanel {
+  border-radius: 5px;
+  background-color: var(--alive-blue);
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  color: white;
+  display: block;
+  width: fit-content;
+}
+
+.mainContainer .formsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.mainContainer .formsContainer > form {
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 2px 2px 5px var(--black25);
+  padding: 1rem;
+}
+
+.mainContainer .formsContainer > form > h2 {
+  margin-bottom: 1rem;
+  color: var(--black80);
+}
+
+.mainContainer .formsContainer > form > .inputContainer {
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--black50);
+  display: flex;
+  align-items: center;
+}
+
+.mainContainer .formsContainer > form > .inputContainer > strong {
+  font-weight: normal;
+  margin-right: 1rem;
+}
+
+.mainContainer .formsContainer > form > .inputContainer > input,
+.mainContainer .formsContainer > form > .inputContainer > select {
+  border-radius: 3px;
+  border: none;
+  padding: 0.5rem 1rem;
+  /*  border-bottom: 2px solid var(--black25); */
+}
+
+.mainContainer .formsContainer > form > .inputContainer > select {
+  border-bottom: 2px solid var(--black25);
+}
+
+.mainContainer .formsContainer > form > .inputContainer > input[type="color"] {
+  padding: 0;
+  background-color: inherit;
+}
+
+.mainContainer .formsContainer > form > button[type="submit"] {
+  border-radius: 5px;
+  background-color: var(--alive-green);
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  color: white;
+  display: block;
+  width: 100%;
+}

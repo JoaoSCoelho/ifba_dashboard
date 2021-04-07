@@ -1,0 +1,359 @@
+.activitiesHeader {
+  display: flex;
+  border-bottom: 1px solid var(--black25);
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 1rem;
+}
+
+.activitiesHeader h2 {
+  font-size: 2rem;
+  opacity: 0.9;
+}
+
+.activitiesHeader > .buttonsContainer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.activitiesHeader .activitiesFilterCheckbox,
+.activitiesHeader .newActivityCheckbox {
+  position: absolute;
+  opacity: 0;
+}
+
+.activitiesHeader .filterBarContainer > .labelContainer label,
+.activitiesHeader .newActivityContainer .labelContainer > label {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.activitiesHeader .filterBarContainer > .labelContainer,
+.activitiesHeader .newActivityContainer > .labelContainer,
+.activitiesHeader .filterBar .buttonsContainer > button,
+.activitiesHeader .newActivityForm .buttonsContainer > button {
+  overflow: hidden;
+  transition: color 0.2s;
+  width: fit-content;
+  position: relative;
+  color: var(--alive-blue);
+  margin-bottom: 0.3rem;
+}
+
+.activitiesHeader .filterBarContainer > .labelContainer label,
+.activitiesHeader .newActivityContainer > .labelContainer label,
+.activitiesHeader .filterBar .buttonsContainer > button,
+.activitiesHeader .newActivityForm .buttonsContainer > button {
+  padding: 0.4rem 0.8rem;
+
+  filter: grayscale(0.5);
+  position: relative;
+  z-index: 1;
+}
+
+.activitiesHeader .filterBarContainer > .labelContainer:hover,
+.activitiesHeader .newActivityContainer > .labelContainer:hover,
+.activitiesHeader .filterBar .buttonsContainer > button:hover,
+.activitiesHeader .newActivityForm .buttonsContainer > button:hover {
+  border-radius: 5px;
+  color: white;
+}
+
+.activitiesHeader .filterBarContainer > .labelContainer::after,
+.activitiesHeader .filterBar .buttonsContainer > button::after,
+.activitiesHeader .newActivityForm .buttonsContainer > button::after,
+.activitiesHeader .newActivityContainer > .labelContainer::after {
+  height: 10%;
+  width: 100%;
+  content: "";
+  transition: height 0.2s;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  filter: grayscale(0.5);
+  background-color: var(--alive-blue);
+}
+
+.activitiesHeader .filterBarContainer > .labelContainer:hover::after,
+.activitiesHeader .filterBar .buttonsContainer > button:hover::after,
+.activitiesHeader .newActivityForm .buttonsContainer > button:hover::after,
+.activitiesHeader .newActivityContainer > .labelContainer:hover::after {
+  height: 100%;
+}
+
+.activitiesHeader .filterBarContainer > .labelContainer label > svg path,
+.activitiesHeader .newActivityContainer > .labelContainer label > svg polygon {
+  transition: fill 0.2s;
+  fill: var(--alive-blue);
+}
+
+.activitiesHeader .filterBarContainer > .labelContainer:hover label > svg path {
+  fill: white;
+}
+
+.activitiesHeader .filterBarContainer > .labelContainer label > p,
+.activitiesHeader .filterBar .buttonsContainer > button,
+.activitiesHeader .newActivityForm .buttonsContainer > button {
+  font-weight: 700;
+}
+
+.activitiesHeader .filterBarListContainer,
+.activitiesHeader .newActivityFormContainer {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 2;
+  background-color: var(--black50);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.activitiesHeader .activitiesFilterCheckbox:checked ~ .filterBarListContainer,
+.activitiesHeader .newActivityCheckbox:checked ~ .newActivityFormContainer {
+  display: flex;
+}
+
+.activitiesHeader .filterBarListContainer > label,
+.activitiesHeader .newActivityFormContainer > label {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.activitiesHeader .filterBar,
+.activitiesHeader .newActivityContainer .newActivityForm {
+  list-style: none;
+  margin-bottom: 0.5rem;
+  padding: 1.5rem;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 5px;
+  z-index: 3;
+  max-width: 90%;
+  box-shadow: 0 0 15px var(--black50);
+  overflow-y: auto;
+  max-height: 95vh;
+}
+
+.activitiesHeader .filterBar > li {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+  align-items: center;
+  border-bottom: 1px solid var(--black25);
+}
+
+.activitiesHeader .filterBar > li > select,
+.activitiesHeader .filterBar > li input[type="date"],
+.activitiesHeader .newActivityForm .inputsContainer select,
+.activitiesHeader .newActivityForm .inputsContainer input[type="date"] {
+  cursor: pointer;
+  font: inherit;
+  width: min-content;
+  background-color: white;
+  border: none;
+  border-bottom: 2px solid var(--black25);
+  padding: 0.2rem;
+}
+
+.activitiesHeader .filterBar > li > select:hover,
+.activitiesHeader .filterBar > li input[type="date"]:hover,
+.activitiesHeader .newActivityForm .inputsContainer select:hover,
+.activitiesHeader .newActivityForm .inputsContainer input[type="date"]:hover {
+  background-color: var(--black10);
+  border-radius: 5px;
+}
+
+.activitiesHeader .filterBar > li input[type="date"],
+.activitiesHeader .newActivityForm .inputsContainer input[type="date"] {
+  width: 8rem;
+  position: relative;
+}
+
+.activitiesHeader
+  .filterBar
+  > li
+  input[type="date"]::-webkit-calendar-picker-indicator,
+.activitiesHeader
+  .newActivityForm
+  .inputsContainer
+  input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 0;
+}
+
+.activitiesHeader .filterBar .presentationBetween .dateInputs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.activitiesHeader .filterBar .buttonsContainer,
+.activitiesHeader .newActivityForm .buttonsContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.activitiesHeader .filterBar .buttonsContainer > button,
+.activitiesHeader .newActivityForm .buttonsContainer > button {
+  margin-bottom: 0;
+}
+
+.activitiesHeader .filterBar .buttonsContainer > .cancel,
+.activitiesHeader .newActivityForm .buttonsContainer > .cancel {
+  color: var(--if-red);
+  padding: 0;
+}
+
+.activitiesHeader .filterBar .buttonsContainer > .cancel::after,
+.activitiesHeader .newActivityForm .buttonsContainer > .cancel::after {
+  background-color: var(--if-red);
+}
+
+.activitiesHeader .filterBar .buttonsContainer > button > *,
+.activitiesHeader .newActivityForm .buttonsContainer > button > * {
+  z-index: 2;
+  position: relative;
+}
+
+.activitiesHeader .filterBar .buttonsContainer > button label,
+.activitiesHeader .newActivityForm .buttonsContainer > button label {
+  cursor: inherit;
+  width: 100%;
+  height: 100%;
+  padding: 0.4rem 0.8rem;
+}
+
+.activitiesHeader .newActivityContainer > .labelContainer {
+  color: var(--alive-green);
+}
+
+.activitiesHeader .newActivityContainer > .labelContainer::after {
+  background-color: var(--alive-green);
+}
+
+.activitiesHeader
+  .newActivityContainer
+  > .labelContainer:hover
+  > label
+  > svg
+  polygon {
+  fill: white;
+}
+
+.activitiesHeader .newActivityContainer .labelContainer > label {
+  font-weight: 700;
+}
+
+.activitiesHeader .newActivityContainer .labelContainer > label svg {
+  height: 15px;
+  width: 15px;
+}
+
+.activitiesHeader .newActivityContainer > .labelContainer label > svg polygon {
+  fill: var(--alive-green);
+}
+
+.activitiesHeader .newActivityForm .inputsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.activitiesHeader .newActivityForm .inputsContainer > div {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.activitiesHeader .newActivityForm .inputsContainer .inputActivityContainer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  height: 5rem;
+  width: 100%;
+  gap: 0;
+  margin-bottom: 1.2rem;
+}
+
+.activitiesHeader .newActivityForm .inputActivityContainer textarea {
+  border: 2px solid var(--black25);
+  border-radius: 5px;
+  height: 100%;
+  resize: none;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.activitiesHeader
+  .newActivityForm
+  .inputActivityContainer
+  .inputActivityPlaceholder {
+  position: absolute;
+  left: 0.5rem;
+  font-size: 0.9rem;
+  z-index: 0;
+  transition: all 0.2s;
+  background: white;
+  color: var(--black80);
+}
+
+.activitiesHeader
+  .newActivityForm
+  .inputActivityContainer
+  textarea:focus
+  ~ .inputActivityPlaceholder,
+.activitiesHeader
+  .newActivityForm
+  .inputActivityContainer
+  textarea.inputed
+  ~ .inputActivityPlaceholder {
+  font-size: 0.8rem;
+  transform: translateY(-2.5rem);
+  padding: 0 0.2rem;
+}
+
+.activitiesHeader
+  .newActivityForm
+  .inputActivityContainer
+  .inputActivityObservation {
+  font-size: 0.8rem;
+}
+
+.activitiesHeader
+  .newActivityForm
+  .inputActivityContainer
+  .inputActivityObservation::before {
+  content: "*";
+  color: var(--black50);
+  font-size: 1rem;
+}
+
+.activitiesHeader .newActivityForm .buttonsContainer {
+  margin: 0;
+}
+
+.activitiesHeader .newActivityForm .buttonsContainer > button {
+  color: var(--alive-green);
+}
+
+.activitiesHeader .newActivityForm .buttonsContainer > button::after {
+  background-color: var(--alive-green);
+}

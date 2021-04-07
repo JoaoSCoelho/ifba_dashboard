@@ -5,6 +5,7 @@ import styles from "../styles/pages/My.module.css";
 import { useRouter } from "next/router";
 import { AccountContext } from "../contexts/AccountContext";
 import moment from "moment";
+import Link from "next/link";
 
 export default function My() {
   const { account, setAccount } = useContext(AccountContext);
@@ -38,9 +39,9 @@ export default function My() {
         <title>Meus dados</title>
       </Head>
       <main className={styles.mainContainer}>
-        <a href="/panel" className={styles.backToPanel}>
-          &larr; Painel
-        </a>
+        <Link href="/panel">
+          <a className={styles.backToPanel}>&larr; Painel</a>
+        </Link>
         <section className={styles.profileContainer}>
           <div className={styles.profile}>
             <h1>
