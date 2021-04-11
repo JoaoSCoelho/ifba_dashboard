@@ -66,10 +66,11 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
 
   if (req.method === "POST" || req.method === "PUT") {
     // @ts-ignore
-    if (!req.body?.presentationTimestamp)
+    if (!req.body?.class) return res.status(400).send("Bad request!"); // @ts-ignore
+    if (!req.body.presentationTimestamp)
       // @ts-ignore
-      return res.status(400).send("Bad request!"); // @ts-ignore
-    if (!req.body.class) return res.status(400).send("Bad request!"); // @ts-ignore
+      req.body.presentationTimestamp = 999999999999999;
+    // @ts-ignore
     if (req.body.class !== account.class && !account.isAdmin)
       // @ts-ignore
       return res.status(400).send("Bad request!"); // @ts-ignore
@@ -110,8 +111,9 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     });
   } else if (req.method === "PUT") {
     // @ts-ignore
-    const activityForEdit = //@ts-ignore
-    (await activitiesCollection.doc(String(req.body.id))?.get())?.data(); // @ts-ignore
+    const activityForEdit = ( //@ts-ignore
+      await activitiesCollection.doc(String(req.body.id))?.get()
+    )?.data(); // @ts-ignore
     if (!activityForEdit) return res.status(400).send("Bad request!");
     //@ts-ignore
     activitiesCollection.doc(String(req.body.id)).update({
@@ -126,8 +128,9 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     });
   } else if (req.method === "DELETE") {
     // @ts-ignore
-    const activityForDelete = //@ts-ignore
-    (await activitiesCollection.doc(String(req.query.id))?.get())?.data();
+    const activityForDelete = ( //@ts-ignore
+      await activitiesCollection.doc(String(req.query.id))?.get()
+    )?.data();
     if (
       !activityForDelete ||
       (activityForDelete.author !== account.id && !account.isAdmin)
