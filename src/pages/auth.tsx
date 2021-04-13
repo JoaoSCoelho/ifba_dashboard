@@ -3,6 +3,7 @@ import Head from "next/head";
 import { MouseEvent, useState } from "react";
 import styles from "../styles/pages/Auth.module.css";
 import { useRouter } from "next/router";
+import { LoadingMask } from "../components/LoadingMask";
 
 export default function Auth() {
   const [showKey, setShowKey] = useState(false);
@@ -10,17 +11,17 @@ export default function Auth() {
   const [acessKey, setAcessKey] = useState("");
   const [serverError, setServerError] = useState("");
   const [keepConnected, setKeepConnected] = useState(false);
+  const [showLoadingMask, setShowLoadingMask] = useState<boolean>(false);
   const router = useRouter();
 
   function submit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    const loadingContainer = document.getElementById("loading-container");
-    loadingContainer.style.display = "flex";
+    setShowLoadingMask(true);
 
     if (!acessKey) {
       setServerError("");
       setServerError("CHAVE DE ACESSO NEGADA");
-      loadingContainer.style.display = "none";
+      setShowLoadingMask(false);
       return;
     }
 
@@ -34,11 +35,11 @@ export default function Auth() {
           "expiresIn",
           JSON.stringify(Date.now() + 1000 * 60 * 60 * 48)
         );
-        loadingContainer.style.display = "none";
+        setShowLoadingMask(false);
         router.push("/panel");
       })
       .catch((e) => {
-        loadingContainer.style.display = "none";
+        setShowLoadingMask(false);
         if (e.response?.status === 400) {
           setServerError("");
           setServerError("CHAVE DE ACESSO NEGADA!");
@@ -58,34 +59,7 @@ export default function Auth() {
       <Head>
         <title>Autenticação</title>
       </Head>
-      <div
-        className={styles.loading}
-        id="loading-container"
-        style={{ display: "none" }}
-      >
-        <svg width="180" height="180">
-          <circle
-            className={styles.loadingCircle}
-            fill="none"
-            stroke="white"
-            strokeWidth="3"
-            cx="93"
-            cy="93"
-            r="84"
-          />
-
-          <circle
-            className={styles.loadingCircleInter}
-            fill="none"
-            stroke="white"
-            strokeWidth="3"
-            cx="93"
-            cy="86"
-            r="78"
-          />
-        </svg>
-        <p>Verificando...</p>
-      </div>
+      {showLoadingMask && <LoadingMask text="Verificando..." />}
 
       <main
         className={`${styles.authContainer} ${
