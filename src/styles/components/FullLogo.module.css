@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  filter: contrast(0.7);
+}
+
+.container > svg path {
+  fill: #006c9e;
+}
+
+.container > .text {
+  opacity: 0.8;
+}
+
+.container > .text .name {
+  font-size: 1.5rem;
+}
