@@ -1,35 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# IFBA Dashboard
 
-## Getting Started
+O IFBA Dashboard foi um site criado inteiramente com Next.JS e Firebase para suprir uma demanda minha e de parte da minha turma do colégio no ensino médio enquanto as aulas eram online. Este projeto foi feito em aproximadamente 1 semana e foi utilizado TypeScript e Next Apis para acelerar o processo de desenvolvimento.
 
-First, run the development server:
+> → Você pode usar a chave de acesso: **`12345678`** para testar o site online [<https://ifba-dashboard.vercel.app/>](https://ifba-dashboard.vercel.app/)
+
+![Exemplo de uso](resources/usage-example.gif)
+
+## Rodando localmente
+
+→ *Precisa ter o Node.JS na sua máquina*
+
+Instale as dependências
+```bash
+npm install
+```
+
+Crie um arquivo chamado `.env` na raíz do projeto
+
+```env
+SECRET=SEGREDO DO TOKEN
+API_KEY=OBTIDO NO FIREBASE
+AUTH_DOMAIN=OBTIDO NO FIREBASE
+DATABASE_URL=OBTIDO NO FIREBASE
+PROJECT_ID=OBTIDO NO FIREBASE
+STORAGE_BUCKET=OBTIDO NO FIREBASE
+MESSAGING_SENDER_ID=OBTIDO NO FIREBASE
+APP_ID=OBTIDO NO FIREBASE
+MEASUREMENT_ID=OBTIDO NO FIREBASE
+TOKEN_EXPIRES_TIME=TEMPO EM HORAS PARA O TOKEN EXPIRAR
+```
+
+Rode o servidor de desenvolvimento:
 
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Para rodar o site em modo de produção:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```bash
+npm run build
+# em seguida
+npm run start
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Abra [http://localhost:3000](http://localhost:3000) no navegador.
